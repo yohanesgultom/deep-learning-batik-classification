@@ -18,8 +18,8 @@ from keras import backend as K
 
 # training parameters
 CV = 7  
-BATCH_SIZE = 50
-NB_EPOCH = 100
+BATCH_SIZE = 200
+NB_EPOCH = 300
 
 # const
 # FEATURES_DIM = (512, 7, 7) # Theano
@@ -45,6 +45,24 @@ def create_model_tanh_two_layers(input_shape, num_class):
     model.add(Dense(num_class, activation='softmax', init='uniform'))
     return model
 
+def create_model_sigmoid_two_layers(input_shape, num_class):
+    model = Sequential()
+    model.add(Dense(4096, activation='sigmoid', input_shape=input_shape))
+    model.add(Dropout(0.6))
+    model.add(Dense(4096, activation='sigmoid'))
+    model.add(Dropout(0.6))
+    model.add(Dense(num_class, activation='softmax', init='uniform'))
+    return model
+
+
+def create_model_relu_tanh_two_layers(input_shape, num_class):
+    model = Sequential()
+    model.add(Dense(4096, activation='relu', input_shape=input_shape))
+    model.add(Dropout(0.6))
+    model.add(Dense(4096, activation='tanh'))
+    model.add(Dropout(0.6))
+    model.add(Dense(num_class, activation='softmax', init='uniform'))
+    return model
 
 def create_model_relu_one_layer(input_shape, num_class):
     model = Sequential()
@@ -57,6 +75,14 @@ def create_model_relu_one_layer(input_shape, num_class):
 def create_model_tanh_one_layer(input_shape, num_class):
     model = Sequential()
     model.add(Dense(4096, activation='tanh', input_shape=input_shape))
+    model.add(Dropout(0.6))
+    model.add(Dense(num_class, activation='softmax', init='uniform'))
+    return model
+
+
+def create_model_sigmoid_one_layer(input_shape, num_class):
+    model = Sequential()
+    model.add(Dense(4096, activation='sigmoid', input_shape=input_shape))
     model.add(Dropout(0.6))
     model.add(Dense(num_class, activation='softmax', init='uniform'))
     return model
@@ -97,9 +123,16 @@ if __name__ == '__main__':
     X = np.concatenate((train_dataset.data[:], test_dataset.data[:]), axis=0)
     y = np.concatenate((train_dataset.labels[:], test_dataset.labels[:]), axis=0)
 
+    # close dataset
+    train_datafile.close()
+    test_datafile.close()
+
     model_creators = [
+        create_model_sigmoid_two_layers,
         create_model_relu_two_layers,
         create_model_tanh_two_layers,
+        create_model_relu_tanh_two_layers,
+        create_model_sigmoid_one_layer,
         create_model_relu_one_layer,
         create_model_tanh_one_layer,
     ]
@@ -132,6 +165,3 @@ if __name__ == '__main__':
         stdev = result['scores'].std() * 2
         print("{} CV accuracy: {:0.2f} (+/- {:0.2f})".format(name, mean, stdev))
 
-    # close dataset
-    train_datafile.close()
-    test_datafile.close()
