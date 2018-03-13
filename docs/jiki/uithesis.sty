@@ -1,0 +1,446 @@
+%
+% Konfigurasi LaTeX untuk laporan thesis/ta/skripsi/sp sesuai dengan aturan UI
+% 
+% @author  Andreas Febrian
+% @version 1.03
+%
+% Terima kasih untuk: 
+% 1. Lia Sadita 
+% 2. Andre Tampubolon
+% 3. Erik Dominikus
+%
+% Dimodifikasi kembali oleh Ardhi Putra Pratama (June 2013)
+% - Daftar Kode dan Template penggunaan kode dan snippet
+% - Fixing Bug pada tabel,khususnya pewarnaan
+% - Model Bib dengan bibliografi otomatis (format APA)
+%         - modifikasi jadi bisa menggunakan bahasa indonesia
+% - Landscape and looong table (in case u need it)
+% - dan yang kecil-kecil lainnya (lupa)
+%
+%
+% Konfigurasi ini dibuat dengan menggunakan:
+% - konfigurasi laporan TA yang digunakan Fahrurrozi Rahman
+% - konfigurasi LaTeX untuk proceeding ICACSIS 2009 yang dibuat oleh Andreas 
+%	Febrian dan Andre Tampubolon
+% - Laporan Thesis yang dibuat Andreas Febrian
+% - Skripsi Ardhi Putra Pratama
+
+
+%-----------------------------------------------------------------------------%
+% Package
+%-----------------------------------------------------------------------------%
+
+%
+% From The tocbibind package [author: Peter Wilson, Herries Press]:
+% The tocbibind package can be used to add document elements like a 
+% bibliography or an index to the Table of Contents. The package is designed 
+% to work with the four standard book, report, article and proc classes, and to 
+% a limited extent with the ltxdoc class.
+% 
+\usepackage{tocbibind}
+
+%
+% From [Wikipedia]:
+% The package hyperref provides LaTeX the ability to create hyperlinks within 
+% the document. It works with pdflatex and also with standard "latex" used with 
+% dvips and ghostscript or dvipdfm to build a PDF file. For example: 
+%	- \hyperref[mainlemma]{lemma \ref{mainlemma}}
+%	- \url{http://www.wikibooks.org}
+%	- \href{http://www.wikibooks.org}{wikibooks home}
+%	- \href{mailto:my_address@wikibooks.org}{
+%		\nolinkurl{my_address@wikibooks.org}}
+% 
+\usepackage{hyperref}
+  \hypersetup{
+  	a4paper, 
+  	colorlinks=false,
+  	pdfborder=0 0 0,
+  	linkcolor=blue,
+  	citecolor=black,
+  	bookmarksopen=false,
+  	bookmarksnumbered=true,
+  	pdfstartview=FitH,
+  	pdfview=FitH
+	}
+
+%
+% The url package allows spacing and line breaks that result in intelligent 
+% printing of email addresses, hypertext links, and path or directory addresses. 
+% You must enter package commands in TeX fields. The address, link, path, or 
+% directory address specified in the command must not contain unbalanced braces. 
+% If it doesn't contain certain other characters (such as % or #) and doesn't 
+% end with a backslash, you can use the command in the argument to another 
+% command.
+% 
+\usepackage{url}
+  \urlstyle{same}
+  
+% 
+%  Agar tabel bisa menggunakan rowspan atau colspan. 
+% 
+\usepackage{multirow}
+
+%
+% Digunakan untuk memasukan gambar ke laporan. 
+% 
+\usepackage{graphicx}
+
+%
+% Digunakan untuk mengantur line spacing pada laporan. Umumnya spacing yang 
+% digunakan adalah 1.5. 
+% 
+\usepackage{setspace}
+  \onehalfspacing
+  %\doublespacing
+  %\singlespacing
+  
+%
+% From Rforge:
+% The geometry package controls the overall margins and text area of the 
+% document. The package must be called in the preamble of the document and 
+% specified when called.
+% 
+\usepackage[paper=a4paper,headheight=0pt,left=4cm,top=3cm,right=3cm,bottom=3cm]{geometry}
+
+% 
+% Digunakan untuk mengatur caption dalam dokumen.
+% 
+\usepackage[font=footnotesize,format=plain,labelfont=bf,up,textfont=up]{caption}
+
+% imaging
+\usepackage{graphicx}
+\usepackage{subfloat}
+
+% 
+% Membantu penulisan notasi matematika terutama untuk dokumen dengan banyak 
+% rumus. 
+% 
+%\usepackage{amsmath}
+
+% 
+% Membuat seluruh tulisan menjadi Times New Roman.
+% 
+\usepackage{pslatex}
+
+% 
+% Package untuk memasukan berkas pdf sebagai bagian dari dokumen.
+% 
+\usepackage{pdfpages}
+
+% 
+% Membantu dalam mengatur jarak antara tepi kertas dengan posisi header. 
+% 
+\usepackage[ConnyRevised]{fncychap}
+
+% 
+% Digunakan untuk membuat tabel berwarna-warni. 
+% 
+\usepackage{colortbl}
+
+% 
+% 
+% 
+\usepackage{float}
+  \floatplacement{figure}{H}
+  \floatplacement{table}{H}
+
+
+% untuk encoding font
+\usepackage[T1]{fontenc}
+
+
+%-----------------------------------------------------------------------------%
+% Konfigurasi
+%-----------------------------------------------------------------------------%
+\sloppy
+
+\newif\ifpdf
+\ifx\pdfoutput\undefined
+   \pdffalse 
+\else
+   \pdfoutput=1
+   \pdftrue
+\fi
+
+
+% link page numbers in TOC 
+\makeatletter
+\def\contentsline#1#2#3#4{%
+  \ifx\\#4\\%
+    \csname l@#1\endcsname{#2}{#3}%
+  \else
+    \csname l@#1\endcsname{%
+      \hyper@linkstart{link}{#4}{#2}\hyper@linkend
+    }{%
+      % same link destination for the page:
+      \hyper@linkstart{link}{#4}{#3}\hyper@linkend
+      % link destination is the page itself:
+      % \hyperpage{#3}%
+    }%
+  \fi
+}
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                  {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                  {2.3ex \@plus.2ex}%
+                                  {\large\bfseries}}
+
+\renewcommand\subsection{\@startsection {subsection}{2}{\z@}%
+                                  {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                  {2.3ex \@plus.2ex}%
+                                  {\normalsize\bfseries}}
+
+\makeatother
+
+\setcounter{secnumdepth}{3}
+
+\setcounter{tocdepth}{3}
+
+%-----------------------------------------------------------------------------%
+% Atur header dan footer dalam dokumen.
+%-----------------------------------------------------------------------------%
+
+% 
+% Package untuk membuat header dan footer pada dokumen. 
+% 
+\newcommand*{\arialefont}{\fontfamily{phv}\selectfont}
+
+\usepackage{fancyhdr}
+	\fancyhf{}
+	\fancyhead[R]{\thepage} 
+	\fancyfoot[R]{\footnotesize \bo{\arialefont{Universitas Indonesia}}} 
+	\renewcommand{\headrulewidth}{0pt} 
+	\renewcommand{\footrulewidth}{0pt}
+
+\pagestyle{fancy}
+
+
+%-----------------------------------------------------------------------------%
+% Konfigurasi untuk menampilkan Source Code
+%-----------------------------------------------------------------------------%
+\definecolor{verylightblue}{rgb}{0.97,0.97,1.0}
+
+\renewcommand{\ttdefault}{pcr}
+\usepackage{listings}
+\usepackage{xcolor}
+ \lstset{
+         language=C,
+         basicstyle=\footnotesize\ttfamily\bfseries,
+         tabsize=2,
+         extendedchars=true,
+         breaklines=true,
+         keywordstyle=\color{black},
+         commentstyle=\itshape\color{green!40!black},
+         frame=btlr,         
+         stringstyle=\color{black}\ttfamily,
+         showspaces=false,
+         showtabs=false,
+         xleftmargin=5pt,
+         framexleftmargin=5pt,
+         framexrightmargin=5pt,
+         framexbottommargin=0pt,
+         backgroundcolor=\color{verylightblue},
+         showstringspaces=false
+ }
+
+\lstdefinestyle{shell} {
+         language=bash,
+         basicstyle=\footnotesize\ttfamily\bfseries,
+         tabsize=2,
+         extendedchars=true,
+         breaklines=true,
+         keywordstyle=\color{black},
+         frame=btlr,         
+         stringstyle=\color{black}\ttfamily,
+         showspaces=false,
+         showtabs=false,
+         xleftmargin=5pt,
+         framexleftmargin=5pt,
+         framexrightmargin=5pt,
+         framexbottommargin=0pt,
+         backgroundcolor=\color{verylightblue},
+         showstringspaces=false
+}
+\lstdefinestyle{smallshell} {
+         language=bash,
+         basicstyle=\footnotesize\ttfamily\bfseries,
+         extendedchars=true,
+         breaklines=true,
+         keywordstyle=\color{black},
+         frame=btlr,         
+         stringstyle=\color{black}\ttfamily,
+         showspaces=false,
+         showtabs=false,
+         backgroundcolor=\color{verylightblue},
+         showstringspaces=false
+}
+\lstdefinestyle{L} {
+         language=C,
+         basicstyle=\scriptsize\ttfamily\bfseries,
+         tabsize=2,
+         extendedchars=true,
+         breaklines=true,
+         keywordstyle=\color{black},
+         commentstyle=\itshape\color{green},
+         frame=tblr,         
+         stringstyle=\color{black}\ttfamily,
+         showspaces=false,
+         showtabs=false,
+         xleftmargin=5pt,
+         framexleftmargin=5pt,
+         framexrightmargin=5pt,
+         framexbottommargin=0pt,
+         backgroundcolor=\color{verylightblue},
+         showstringspaces=false
+}
+%\DeclareCaptionFont{white}{\color{white}}
+%\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{\hspace{-0.2cm}#1#2#3}}
+%\captionsetup[lstlisting]{labelfont=white,textfont=white,margin=0pt}
+
+%-----------------------------------------------------------------------------%
+% Perintah Baru
+%-----------------------------------------------------------------------------%
+
+% 
+% Perintah untuk membuat huruf tecetak miring. (alias)
+\newcommand{\f}[1]{\textit{#1}}
+% 
+% Perintah untuk huruf tercetak tebal dan miring. 
+\newcommand{\bi}[1]{\textbf{\textit{#1}}}
+% 
+% Perintah untuk huruf tercetak tebal.
+\newcommand{\bo}[1]{\textbf{#1}}
+% 
+% 
+%\newcommand{\m}[1]{\boldmath{ \( #1 \)}}
+% 
+% 
+%\newcommand{\mc}[1]{\boldmath{ \[ #1 \]}}
+% 
+% 
+\newcommand{\code}[1]{{\ttfamily #1}}
+\newcommand{\co}[1]{{\ttfamily #1}}
+% 
+% Buat catatan kecil. Catatan akan ditampilkan dalam tabel. 
+\newcommand{\todo}[1]{
+    \begin{tabular}{| p{13.5cm} |}
+		\rowcolor[rgb]{.9,.6,.6}
+		\bo{@todo} \\
+		\rowcolor[gray]{1.}
+		 #1 \\
+		 \\
+		\hline
+	\end{tabular}
+    }
+% 
+% Buat catatan untuk menambahkan referensi. 
+\newcommand{\todoCite}{
+	\begin{tabular}{| l |}
+		\rowcolor[rgb]{.6,.9,.6}
+		\bo{@todo} \\
+		\rowcolor[gray]{1.} 
+		 Referensi \\
+		 \\
+		\hline
+	\end{tabular}
+    }
+% 
+% Tambahkan berkas PDF ke dalam laporan dan gunakan style laporan  
+% terhadap berkas ini. 
+\newcommand{\inpdf}[1]{
+	\includepdf[pages=-,pagecommand={\thispagestyle{fancy}}]{#1.pdf}}
+% 
+% Tambahkan berkas PDF ke dalam laporan. 
+\newcommand{\putpdf}[1]{\includepdf[pages=-]{#1.pdf}}
+% 
+% Perintah untuk membuat perintah/variabel baru. 
+\newcommand{\var}[2]{\newcommand{#1}{#2}}
+% 
+% Perintah untuk membuat perintah/variabel baru. Teks yang ditulis dalam 
+% perintah ini akan diformat ulang menggunakan huruf kapital. 
+\newcommand{\Var}[2]{\newcommand{#1}{\uppercase{#2}}}
+% 
+% Tambahkan kata-kata yang dimasukan kedalam Table of Contents. 
+\newcommand{\addChapter}[1]{\phantomsection \addcontentsline{toc}{chapter}{#1}}
+% 
+% Alias untuk perintah \LaTeX
+\newcommand{\latex}{\LaTeX}
+
+% Mengurangi vertical blank space
+\newcommand{\squeezeup}{\vspace{-2.5mm}}
+
+%-----------------------------------------------------------------------------%
+% Ubah Istilah Penulisan
+%-----------------------------------------------------------------------------%
+%
+% Beberapa istilah yang tepat untuk digunakan dalam laporan.
+\renewcommand{\bibname}{Daftar Referensi}
+% 
+% 
+\renewcommand{\contentsname}{Daftar Isi}
+% 
+% 
+\renewcommand{\listfigurename}{Daftar Gambar}
+% 
+% 
+\renewcommand{\listtablename}{Daftar Tabel}
+% 
+% 
+\renewcommand{\chaptername}{BAB}
+% 
+% 
+\renewcommand{\figurename}{\bo{Gambar}}
+% 
+% 
+\renewcommand{\tablename}{\bo{Tabel}}
+% 
+% 
+\newcommand{\pic}{Gambar}
+% 
+% 
+\newcommand{\tab}{Tabel}
+% 
+% 
+\newcommand{\equ}{Persamaan}
+%
+%
+\renewcommand{\lstlistingname}{Kode}
+%
+\renewcommand{\lstlistlistingname}{Daftar Kode}
+
+%-----------------------------------------------------------------------------%
+% Perintah tambahan
+%-----------------------------------------------------------------------------%
+%\newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
+%\newcommand{\subscript}[1]{\ensuremath{_{\textrm{#1}}}}
+%\newcommand{\spth}[0]{\superscript{th}}
+%\newcommand{\st}[0]{\superscript{st}}
+%\newcommand{\nd}[0]{\superscript{nd}}
+%\newcommand{\rd}[0]{\superscript{rd}}
+
+% warna-warna
+\definecolor{Blue}{rgb}{0.93,0.93,1.0}
+\definecolor{headertbl}{rgb}{0.815686275,0.831372549,0.839215686}
+
+% seting tabel
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
+
+\newcolumntype{b}{>{\columncolor{Blue}}c}
+
+%untuk blok verbatim
+\usepackage{fancyvrb}
+
+%nampilin daptar kode
+\renewcommand{\lstlistoflistings}{\begingroup
+\tocsection
+\tocfile{Daftar Kode}{lol}
+\endgroup}
+
+%buat ngilangin bug garis warna header tabel
+\usepackage{hhline}
+
+%untuk landscape table/page. KALAU MAU PRINT, GANTI JADI 'lscape'
+\usepackage{pdflscape}
+
+%longtable
+\usepackage{longtable}

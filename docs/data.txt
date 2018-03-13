@@ -1,0 +1,73 @@
+## Research result
+
+## Issues with the dataset
+
+* Only assign one class per sample while a lot of samples belong to multiple of motifs (mixed) (eg. Parang + Kawung, Ceplok + Kawung, Parang + Kawung + Ceplok)
+* Lereng and Parang motifs are alike (many redundant training data)
+* Variances in datasets: variances in image's size & layout
+* A lot of irregular noises in samples eg. borders, watermarks even other object like mannequin
+
+## Average accuracy
+
+Test machine:
+Intel(R) Core(TM) i7-5960X CPU @ 3.00GHz
+SanDisk SDSSDHII 240GB
+GeForce GTX 1080 8GB GPU
+32 GB RAM
+
+SIFT + BOW + SVM = 0.22
+Confusion matrix:
+[[0 6 0 0 4]
+ [0 5 2 0 3]
+ [0 5 0 0 5]
+ [0 1 1 0 8]
+ [0 4 0 0 6]]
+real	9m14.541s
+
+
+SIFT + BOW + SVM + tuned dataset = 0.2553
+Confusion matrix:
+[[0 5 1 0 3]
+ [0 6 2 0 1]
+ [0 5 0 0 4]
+ [0 0 1 0 9]
+ [0 3 1 0 6]]
+real	8m12.294s
+
+
+SURF + BOW + SVM = 0.32
+Confusion matrix:
+[[0 6 0 0 4]
+ [0 7 1 0 2]
+ [0 2 0 0 8]
+ [0 1 0 0 9]
+ [0 1 0 0 9]]
+real	11m36.253s
+
+SURF + BOW + SVM + tuned dataset = 0.4042
+Confusion matrix:
+[[ 1  5  0  0  3]
+ [ 0  8  1  0  0]
+ [ 0  6  0  0  3]
+ [ 0  0  0  0 10]
+ [ 0  0  0  0 10]]
+
+real	10m16.387s
+
+VGG16 + NN = 0.56
+Confusion matrix:
+[[ 2  0  0  0  8]
+ [ 0  7  1  0  2]
+ [ 0  0 10  0  0]
+ [ 0  0  0  0 10]
+ [ 0  0  1  0  9]]
+real    1m12.710s
+
+VGG16 + NN + tuned dataset = 0.7446
+Confusion matrix:
+[[ 6  3  0  0  0]
+ [ 1  4  4  0  0]
+ [ 0  0  9  0  0]
+ [ 0  0  0  6  4]
+ [ 0  0  0  0 10]]
+real    1m4.163s

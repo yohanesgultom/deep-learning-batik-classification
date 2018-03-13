@@ -1,0 +1,62 @@
+1. Why do the author using VGG16 model for batik recognition? However, the number of class in VGG16 is larger than in batik motif class. 
+
+VGG16 was designed to extract generic features of 1,000 classes and to classify them. As suggested by (Fischer, 2014), we can use VGG16 partially (some of the layers) to take advantage of its ability to extract generic features and use it with another image classifier. Even if VGG16 was not designed to classify Batik patterns, we should be able to use it to extract generic features from the patterns and to train a specific classifier using the features. 
+
+2. Moreover, the author should put some ground why using bag of word feature.
+
+SIFT/SURF features has high dimensionality. So in order to use them effectively in classification, we need to be reduce the dimensionality of the feature space. One of the proven way to do it is to build a vocabulary of  that can be used to explain each unique image as histogram with implementing
+clustering method in feature extraction.
+
+
+3. Moreover, some of the figure in the manuscript using somebody else works, thus the author need to "paraphrase" the figure using your own image. 
+
+4. Moreover, the author using CPU for SVM and GPU for deep learning. It cant be compared because it is not comparable (not apple to apple).
+
+5. The authors are recommended to add the initial(http://www.academia.edu/2876095/Recognition_of_Batik_Motifs_using_the_Generalized_Hough_Transform) and 
+
+6. And the latest (https://dl.acm.org/citation.cfm?id=3033327) reference of batik researach to enrich the reference.
+
+7. Was the dataset used in this paper same as dataset used in the previous research by Nurhaida et al [2]? In the previous research by Nurhaida [2], the accuracy of the classification reached 91%.  Please compare proposed method to previous method by Nurhaida et al.
+
+8.      Previous research proposed by Azhar et al [1] tried to solve batik classification. It is reported that the proposed method by Azhar et al reached very good accuracy (more than 97%). Furthermore, Azhar et al used dataset with more classes (50 classes) compared to the authors dataset. But, the method proposed by Azhar et al performed low accuracy here. Please explain in detail why it happened.
+
+9. Please elaborate your analysis especially why the existing methods did not perform well here even tough in previous research they reached good accuracy
+
+10. Please avoid redundant contents e.g. table and fig. 8-9
+
+11. If it is possible, please compare with other classifier e.g. multilayer perceptron, tree, random forest, boosting (for SIFT and SURF feature).
+
+12. Just please elaborate your writing to be more comprehensive because I think the explanation for each section is too short. 
+
+
+SIFT n = 2800
+LogisticRegression CV accuracy: 0.62 (+/- 0.09)
+SVC CV accuracy: 0.35 (+/- 0.08)
+MLPClassifier CV accuracy: 0.60 (+/- 0.11)
+DecisionTreeClassifier CV accuracy: 0.48 (+/- 0.06)
+GradientBoostingClassifier CV accuracy: 0.63 (+/- 0.10)
+RandomForestClassifier CV accuracy: 0.54 (+/- 0.13)
+
+SURF n = 2800
+LogisticRegression CV accuracy: 0.58 (+/- 0.12)
+SVC CV accuracy: 0.34 (+/- 0.06)
+MLPClassifier CV accuracy: 0.58 (+/- 0.11)
+DecisionTreeClassifier CV accuracy: 0.46 (+/- 0.08)
+GradientBoostingClassifier CV accuracy: 0.59 (+/- 0.10)
+RandomForestClassifier CV accuracy: 0.54 (+/- 0.13)
+
+SIFT n = 2800 CLEANED
+LogisticRegression CV accuracy: 0.65 (+/- 0.14)
+SVC CV accuracy: 0.36 (+/- 0.14)
+MLPClassifier CV accuracy: 0.66 (+/- 0.15)
+DecisionTreeClassifier CV accuracy: 0.53 (+/- 0.11)
+GradientBoostingClassifier CV accuracy: 0.67 (+/- 0.16)
+RandomForestClassifier CV accuracy: 0.61 (+/- 0.10)
+
+SURF n = 2800 CLEANED
+LogisticRegression CV accuracy: 0.68 (+/- 0.14)
+SVC CV accuracy: 0.35 (+/- 0.12)
+MLPClassifier CV accuracy: 0.63 (+/- 0.14)
+DecisionTreeClassifier CV accuracy: 0.53 (+/- 0.14)
+GradientBoostingClassifier CV accuracy: 0.65 (+/- 0.13)
+RandomForestClassifier CV accuracy: 0.58 (+/- 0.09)
