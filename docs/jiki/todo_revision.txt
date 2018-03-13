@@ -10,24 +10,35 @@ clustering method in feature extraction.
 
 3. Moreover, some of the figure in the manuscript using somebody else works, thus the author need to "paraphrase" the figure using your own image. 
 
+In progress
+
 4. Moreover, the author using CPU for SVM and GPU for deep learning. It cant be compared because it is not comparable (not apple to apple).
 
-5. The authors are recommended to add the initial(http://www.academia.edu/2876095/Recognition_of_Batik_Motifs_using_the_Generalized_Hough_Transform) and 
+OK
 
-6. And the latest (https://dl.acm.org/citation.cfm?id=3033327) reference of batik researach to enrich the reference.
+5. The authors are recommended to add the initial(http://www.academia.edu/2876095/Recognition_of_Batik_Motifs_using_the_Generalized_Hough_Transform) and And the latest (https://dl.acm.org/citation.cfm?id=3033327) reference of batik researach to enrich the reference.
 
-7. Was the dataset used in this paper same as dataset used in the previous research by Nurhaida et al [2]? In the previous research by Nurhaida [2], the accuracy of the classification reached 91%.  Please compare proposed method to previous method by Nurhaida et al.
+In progress
 
-8.      Previous research proposed by Azhar et al [1] tried to solve batik classification. It is reported that the proposed method by Azhar et al reached very good accuracy (more than 97%). Furthermore, Azhar et al used dataset with more classes (50 classes) compared to the authors dataset. But, the method proposed by Azhar et al performed low accuracy here. Please explain in detail why it happened.
+6. Was the dataset used in this paper same as dataset used in the previous research by Nurhaida et al [2]? In the previous research by Nurhaida [2], the accuracy of the classification reached 91%.  Please compare proposed method to previous method by Nurhaida et al.
 
-9. Please elaborate your analysis especially why the existing methods did not perform well here even tough in previous research they reached good accuracy
+The dataset used in this research is different with previous research (Nurhaida, 2015). The previous research make use of fundamental templates of batik patterns (Samsi, 2011) as a dataset. While in this research, a dataset of unstandarized photograph of batik fabrics which mimics real world scenario better.
 
-10. Please avoid redundant contents e.g. table and fig. 8-9
+7.      Previous research proposed by Azhar et al [1] tried to solve batik classification. It is reported that the proposed method by Azhar et al reached very good accuracy (more than 97%). Furthermore, Azhar et al used dataset with more classes (50 classes) compared to the authors dataset. But, the method proposed by Azhar et al performed low accuracy here. Please explain in detail why it happened. Please elaborate your analysis especially why the existing methods did not perform well here even tough in previous research they reached good accuracy
 
-11. If it is possible, please compare with other classifier e.g. multilayer perceptron, tree, random forest, boosting (for SIFT and SURF feature).
+Despite of the number of classes, the previous research (Azhar, 2015) apparently use a smaller dataset than this research's. Previous research uses dataset of 300 128x128-pixels images grouped into 50 classes (hence, only 6 images/class). Apparently, this kind of dataset is much more suitable than the dataset used in this research
 
-12. Just please elaborate your writing to be more comprehensive because I think the explanation for each section is too short. 
+8. Please avoid redundant contents e.g. table and fig. 8-9
 
+Will be removed
+
+9. If it is possible, please compare with other classifier e.g. multilayer perceptron, tree, random forest, boosting (for SIFT and SURF feature).
+
+OK
+
+10. Just please elaborate your writing to be more comprehensive because I think the explanation for each section is too short. 
+
+In progress
 
 SIFT n = 2800
 LogisticRegression CV accuracy: 0.62 (+/- 0.09)
@@ -60,3 +71,21 @@ MLPClassifier CV accuracy: 0.63 (+/- 0.14)
 DecisionTreeClassifier CV accuracy: 0.53 (+/- 0.14)
 GradientBoostingClassifier CV accuracy: 0.65 (+/- 0.13)
 RandomForestClassifier CV accuracy: 0.58 (+/- 0.09)
+
+VGG16
+LogisticRegression CV accuracy: 0.61 (+/- 0.08)
+SVC CV accuracy: 0.35 (+/- 0.05)
+MLPClassifier CV accuracy: 0.61 (+/- 0.05)
+DecisionTreeClassifier CV accuracy: 0.47 (+/- 0.06)
+GradientBoostingClassifier CV accuracy: 0.61 (+/- 0.05)
+RandomForestClassifier CV accuracy: 0.56 (+/- 0.07)
+
+VGG16 CLEANED
+LogisticRegression CV accuracy: 0.67 (+/- 0.09)
+SVC CV accuracy: 0.35 (+/- 0.05)
+MLPClassifier CV accuracy: 0.66 (+/- 0.07)
+DecisionTreeClassifier CV accuracy: 0.50 (+/- 0.10)
+GradientBoostingClassifier CV accuracy: 0.67 (+/- 0.09)
+RandomForestClassifier CV accuracy: 0.61 (+/- 0.11)
+
+

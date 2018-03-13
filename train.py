@@ -105,6 +105,7 @@ if __name__ == '__main__':
     ]
 
     results = []
+    input_dim = (np.prod(FEATURES_DIM),)
     for j, create_model in enumerate(model_creators):
         skf = StratifiedKFold(y.argmax(1), n_folds=n_folds, shuffle=True)
         scores = []
@@ -112,7 +113,7 @@ if __name__ == '__main__':
             print("Running fold {}/{}".format(i+1, n_folds))
             model = None # Clearing the NN.
             sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
-            model = create_model(FEATURES_DIM, EXPECTED_CLASS)            
+            model = create_model(input_dim, EXPECTED_CLASS)
             model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
             score = train_and_evaluate_model(model, X[train], y[train], X[test], y[test])
             scores.append(score)
