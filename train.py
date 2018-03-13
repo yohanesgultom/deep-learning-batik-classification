@@ -18,7 +18,7 @@ from keras import backend as K
 
 # training parameters
 CV = 7  
-BATCH_SIZE = 200
+BATCH_SIZE = 700 # fine on GTX 980 4 GB
 NB_EPOCH = 300
 
 # const
@@ -95,7 +95,7 @@ def train_and_evaluate_model(model, X_train, y_train, X_test, y_test):
         validation_data=(X_test, y_test),
         shuffle=True)
 
-    y_pred = model.predict_on_batch(X_test)
+    y_pred = model.predict(X_test)
     predictions = y_pred.argmax(1)
     truths = y_test.argmax(1)
     return accuracy_score(truths, predictions)

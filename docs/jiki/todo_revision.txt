@@ -88,4 +88,13 @@ DecisionTreeClassifier CV accuracy: 0.50 (+/- 0.10)
 GradientBoostingClassifier CV accuracy: 0.67 (+/- 0.09)
 RandomForestClassifier CV accuracy: 0.61 (+/- 0.11)
 
+VGG16 NN CLEANED 300 epoch
+create_model_sigmoid_two_layers CV accuracy: 0.68 (+/- 0.12)
+create_model_relu_two_layers CV accuracy: 0.35 (+/- 0.14)
+create_model_tanh_two_layers CV accuracy: 0.68 (+/- 0.11)
+create_model_relu_tanh_two_layers CV accuracy: 0.67 (+/- 0.08)
+create_model_sigmoid_one_layer CV accuracy: 0.68 (+/- 0.13)
+create_model_relu_one_layer CV accuracy: 0.56 (+/- 0.19)
+create_model_tanh_one_layer CV accuracy: 0.66 (+/- 0.08)
+
 
