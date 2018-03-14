@@ -13,6 +13,7 @@ from keras.models import Sequential, Model
 from keras.layers.core import Flatten, Dense, Dropout
 from keras.optimizers import SGD
 from keras.models import model_from_json
+from sklearn.metrics import accuracy_score
 
 # default training parameters
 CV = 7  
@@ -79,7 +80,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     test_file = args.test_file
     train_file = args.train_file
-    val_file = args.train_file
+    val_file = args.val_file
     model_json = args.model_json
     model_weights = args.model_weights
     n_folds = args.n_folds
