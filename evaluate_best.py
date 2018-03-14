@@ -38,7 +38,7 @@ def create_model_tanh_two_layers(input_shape, num_class):
 
 
 def build_model(input_shape, num_class, X_train, y_train, X_test, y_test):
-    model = create_model_tanh_two_layers()
+    model = create_model_tanh_two_layers(input_shape, num_class)
     model.fit(X_train, y_train,
         batch_size=batch_size,
         epochs=nb_epoch,
