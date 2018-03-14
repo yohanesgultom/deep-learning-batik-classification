@@ -92,7 +92,7 @@ def create_model_sigmoid_one_layer(input_shape, num_class):
 def train_and_evaluate_model(model, X_train, y_train, X_test, y_test):
     model.fit(X_train, y_train,
         batch_size=batch_size,
-        nb_epoch=nb_epoch,
+        epochs=nb_epoch,
         validation_data=(X_test, y_test),
         shuffle=True)
 

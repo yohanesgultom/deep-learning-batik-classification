@@ -41,6 +41,34 @@ OK
 In progress
 
 
+===
+
+VGG16 NN CLEANED 50 epoch
+create_model_sigmoid_two_layers CV accuracy: 0.62 (+/- 0.11)
+create_model_relu_two_layers CV accuracy: 0.67 (+/- 0.13)
+create_model_tanh_two_layers CV accuracy: 0.67 (+/- 0.11)
+create_model_relu_tanh_two_layers CV accuracy: 0.68 (+/- 0.10)
+create_model_sigmoid_one_layer CV accuracy: 0.67 (+/- 0.08)
+create_model_relu_one_layer CV accuracy: 0.67 (+/- 0.07)
+create_model_tanh_one_layer CV accuracy: 0.69 (+/- 0.07)
+
+VGG16 NN CLEANED 100 epoch
+create_model_sigmoid_two_layers CV accuracy: 0.68 (+/- 0.10)
+create_model_relu_two_layers CV accuracy: 0.67 (+/- 0.07)
+create_model_tanh_two_layers CV accuracy: 0.69 (+/- 0.06)
+create_model_relu_tanh_two_layers CV accuracy: 0.68 (+/- 0.08)
+create_model_sigmoid_one_layer CV accuracy: 0.69 (+/- 0.13)
+create_model_relu_one_layer CV accuracy: 0.63 (+/- 0.05)
+create_model_tanh_one_layer CV accuracy: 0.67 (+/- 0.11)
+
+VGG16 NN CLEANED 200 epoch
+create_model_sigmoid_two_layers CV accuracy: 0.68 (+/- 0.08)
+create_model_relu_two_layers CV accuracy: 0.69 (+/- 0.10)
+create_model_tanh_two_layers CV accuracy: 0.67 (+/- 0.11)
+create_model_relu_tanh_two_layers CV accuracy: 0.69 (+/- 0.08)
+create_model_sigmoid_one_layer CV accuracy: 0.67 (+/- 0.08)
+create_model_relu_one_layer CV accuracy: 0.65 (+/- 0.07)
+create_model_tanh_one_layer CV accuracy: 0.66 (+/- 0.11)
 
 VGG16 NN CLEANED 300 epoch
 create_model_sigmoid_two_layers CV accuracy: 0.68 (+/- 0.12)
