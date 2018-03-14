@@ -9,6 +9,7 @@ import os
 import cv2
 import numpy as np
 import pickle
+import argparse
 from helper import get_dir_info, build_extractor, build_dataset
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import cross_val_score
@@ -29,8 +30,9 @@ classfiers = [
     RandomForestClassifier(),
 ]
 
+# default params
 CV = 7
-dictionarySize = 400
+dictionary_size = 2800
 bow_sift_dictionary = 'bow_sift_dictionary.pkl'
 bow_sift_features = 'bow_sift_features.pkl'
 bow_sift_features_labels = 'bow_sift_features_labels.pkl'
@@ -38,9 +40,17 @@ bow_sift_features_test = 'bow_sift_features_test.pkl'
 bow_sift_features_labels_test = 'bow_sift_features_labels_test.pkl'
 
 if __name__ == '__main__':
-    train_dir_path = sys.argv[1]
-    test_dir_path = sys.argv[2]
-    CV = int(sys.argv[3]) if len(sys.argv) > 3 else CV
+    parser = argparse.ArgumentParser(description='Preprocess, vectorize, extract SIFT features and evaluate classifiers', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('train_dir_path', help="Path to raw train dataset directory")
+    parser.add_argument('test_dir_path', help="Path to raw test dataset directory")
+    parser.add_argument('--n_folds', '-n', type=int, default=CV, help="Number of folds (K) for K-fold cross validation")
+    parser.add_argument('--dictionary_size', '-d', type=int, default=dictionary_size, help="BoW dictionary size (k-means clusters size)")
+
+    args = parser.parse_args()
+    train_dir_path = args.train_dir_path
+    test_dir_path = args.test_dir_path
+    n_folds = args.n_folds
+    dictionary_size = args.dictionary_size
 
     sift = cv2.xfeatures2d.SIFT_create()
 
@@ -56,7 +66,7 @@ if __name__ == '__main__':
         print('Loaded from {}'.format(bow_sift_features_labels))
     else:        
         dir_names, file_paths, file_dir_indexes = get_dir_info(train_dir_path)
-        extractor, dictionary = build_extractor(sift, dir_names=dir_names, file_paths=file_paths, dictionary_size=dictionarySize)
+        extractor, dictionary = build_extractor(sift, dir_names=dir_names, file_paths=file_paths, dictionary_size=dictionary_size)
         train_desc, train_labels = build_dataset(
             dir_names, 
             file_paths,
@@ -87,7 +97,7 @@ if __name__ == '__main__':
         pickle.dump(test_desc, open(bow_sift_features_test, "wb"))
         pickle.dump(test_labels, open(bow_sift_features_labels_test, "wb"))
 
-    print('Train & test classifiers. CV = {}..'.format(CV))
+    print('Train & test classifiers. CV = {}..'.format(n_folds))
     X_train = np.array(train_desc)
     y_train = np.array(train_labels)
     X_test = np.array(test_desc)
@@ -106,7 +116,7 @@ if __name__ == '__main__':
     
     for classifier in classfiers:
         # cross_validate
-        scores = cross_val_score(classifier, X, y, cv=CV)
+        scores = cross_val_score(classifier, X, y, cv=n_folds)
         print("{} CV accuracy: {:0.2f} (+/- {:0.2f})".format(type(classifier).__name__, scores.mean(), scores.std() * 2))
 
         # # no cv

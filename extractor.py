@@ -7,6 +7,7 @@ Author: yohanes.gultom@gmail.com
 import os
 import tables
 import sys
+import argparse
 import numpy as np
 from keras.applications.vgg16 import VGG16
 from keras.models import Model
@@ -27,9 +28,13 @@ FEATURES_DIM = (7, 7, 512) # TensorFlow
 EXPECTED_CLASS = 5
 
 if __name__ == '__main__':
-    # command line arguments
-    dataset_file = sys.argv[1]
-    features_file = sys.argv[2] if len(sys.argv) > 2 else FEATURES_FILE
+    parser = argparse.ArgumentParser(description='Extract features from vector dataset using VGG16', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('dataset_file', help="Path to vector dataset input file")
+    parser.add_argument('--features_file', default=FEATURES_FILE, help="Output path for features file")
+
+    args = parser.parse_args()
+    dataset_file = args.dataset_file
+    features_file = args.features_file
 
     # loading dataset
     print('Loading preprocessed dataset: {}'.format(dataset_file))

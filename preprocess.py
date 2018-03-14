@@ -11,6 +11,8 @@ import numpy as np
 import json
 import progressbar
 import tables
+import argparse
+import imutils
 from random import sample
 
 # config
@@ -51,6 +53,16 @@ def square_slice_generator(data, size, slices_per_axis=5):
 def resize(data, size):
     return cv2.resize(data, (size, size))
 
+def zoomin(source, z):
+	if z < 1:
+		raise ValueError('z must be bigger than 1')
+	if z == 1:
+		return source
+
+	resized = imutils.resize(source, width=int(round(z * source.shape[1])))	
+	top_left = ((resized.shape[0] - source.shape[0]) / 2, (resized.shape[1] - source.shape[1]) / 2)
+	cropped = resized[top_left[0]:(top_left[0] + source.shape[0]), top_left[1]:(top_left[1] + source.shape[1])]
+	return cropped
 
 def normalize_and_filter(data, expected_max=EXPECTED_MAX, median=MEDIAN_VALUE, threshold=FILTER_THRESHOLD):
     data = (data - median) / median * expected_max
@@ -70,16 +82,26 @@ def append_data_and_label(m, c, dataset, labels):
 
 
 if __name__ == '__main__':
-    # get absolute path from arg
-    mypath = sys.argv[1]
-    dataset_file = sys.argv[2] if len(sys.argv) > 2 else DATASET_PATH
-    index_file = sys.argv[3] if len(sys.argv) > 3 else DATASET_INDEX_PATH
+    parser = argparse.ArgumentParser(description='Preprocess and vectorize images dataset', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('dataset_path', help="Path to raw dataset directory")
+    parser.add_argument('--classes_file', default=DATASET_INDEX_PATH, help="Output path for dataset classes index")
+    parser.add_argument('--vector_file', default=DATASET_PATH, help="Output path for preprocessed and vectorized dataset")
+    parser.add_argument('--rotate', '-r', metavar='ANGLE', type=int, default=0, help="Rotate images to certain angle (integer)")
+    parser.add_argument('--zoomin', '-z', metavar='SCALE', type=float, default=1.0, help="Zoom in images to certain Scale (float)")
+
+    args = parser.parse_args()
+    mypath = args.dataset_path
+    index_file = args.classes_file
+    dataset_file = args.vector_file
+    rotate = args.rotate
+    scale = args.zoomin
+
+    print(args)
 
     # iterate dir content
     stat = {}
-    label_indexes = {}
-    bar = progressbar.ProgressBar(maxval=700).start()
-    count = 1
+    label_indexes = {}    
+    count = 0
     i = 0
 
     # pytables file
@@ -88,6 +110,8 @@ if __name__ == '__main__':
     labels = datafile.create_earray(datafile.root, 'labels', tables.UInt8Atom(shape=(EXPECTED_CLASS)), (0,), 'batik')
 
     # iterate subfolders
+    num_dir = len([name for name in os.listdir(mypath)])
+    bar = progressbar.ProgressBar(maxval=num_dir).start()
     for f in os.listdir(mypath):
         path = os.path.join(mypath, f)
         # exclude Mix motif
@@ -98,23 +122,23 @@ if __name__ == '__main__':
                 if os.path.isfile(path_sub):
                     try:
                         img = cv2.imread(path_sub)
+                        # rotate
+                        img = imutils.rotate(img, rotate) if rotate is not 0 else img
+                        # scale
+                        img = zoomin(img, scale) if scale > 1 else img
+                        # normalize and filter
                         img = normalize_and_filter(img)
                         # gather stat
                         stat[img.shape] = stat[img.shape] + 1 if img.shape in stat else 1
-                        # for square in square_slice_generator(img, EXPECTED_SIZE):
-                        #     # save train data
-                        #     append_data_and_label(square, i, data, labels)
                         r = resize(img, EXPECTED_SIZE)
-                        append_data_and_label(r, i, data, labels)
-                        # update progress bar
-                        bar.update(count)                        
-                        count += 1
+                        append_data_and_label(r, i, data, labels)                        
                     except Exception as err:
                         print(err)
                         print(path_sub)
                         sys.exit(0)
-
             i += 1
+        count += 1
+        bar.update(count)
     bar.finish()
 
     print('{} records saved'.format(data.nrows))

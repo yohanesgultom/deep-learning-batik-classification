@@ -1,5 +1,5 @@
 '''
-Train batik MLP softmax classifier
+Evaluate batik MLP softmax classifier
 
 Author: yohanes.gultom@gmail.com
 '''
@@ -7,6 +7,7 @@ from __future__ import print_function
 import numpy as np
 import sys
 import tables
+import argparse
 from keras.models import Sequential, Model
 from keras.layers.core import Flatten, Dense, Dropout
 from keras.optimizers import SGD
@@ -16,7 +17,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.cross_validation import StratifiedKFold
 from keras import backend as K
 
-# training parameters
+# default training parameters
 CV = 7  
 BATCH_SIZE = 700 # fine on GTX 980 4 GB
 NB_EPOCH = 300
@@ -90,8 +91,8 @@ def create_model_sigmoid_one_layer(input_shape, num_class):
 
 def train_and_evaluate_model(model, X_train, y_train, X_test, y_test):
     model.fit(X_train, y_train,
-        batch_size=BATCH_SIZE,
-        nb_epoch=NB_EPOCH,
+        batch_size=batch_size,
+        nb_epoch=nb_epoch,
         validation_data=(X_test, y_test),
         shuffle=True)
 
@@ -102,12 +103,22 @@ def train_and_evaluate_model(model, X_train, y_train, X_test, y_test):
 
 
 if __name__ == '__main__':
-    train_file = sys.argv[1]
-    test_file = sys.argv[2]
-    n_folds = int(sys.argv[3]) if len(sys.argv) > 3 else CV
+    parser = argparse.ArgumentParser(description='Evaluate neural network classifiers using extracted dataset features', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('train_file', help="Path to train data (features) input file")
+    parser.add_argument('test_file', help="Path to test data (features) input file")
+    parser.add_argument('--n_folds', type=int, default=CV, help="Number of folds (K) for K-fold cross validation")
+    parser.add_argument('--nb_epoch', type=int, default=NB_EPOCH, help="Training epoch")
+    parser.add_argument('--batch_size', type=int, default=BATCH_SIZE, help="Training batch size")
 
-    print('BATCH_SIZE: {}'.format(BATCH_SIZE))
-    print('NB_EPOCH: {}'.format(NB_EPOCH))
+    args = parser.parse_args()
+    train_file = args.train_file
+    test_file = args.test_file
+    n_folds = args.n_folds
+    nb_epoch = args.nb_epoch
+    batch_size = args.batch_size
+
+    print('batch_size: {}'.format(batch_size))
+    print('nb_epoch: {}'.format(nb_epoch))
 
     # loading dataset
     print('Loading train dataset: {}'.format(train_file))
