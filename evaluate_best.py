@@ -34,19 +34,19 @@ def create_model_tanh_two_layers(input_shape, num_class):
     model.add(Dense(4096, activation='tanh'))
     model.add(Dropout(0.6))
     model.add(Dense(num_class, activation='softmax', init='uniform'))
+    sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
+    model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
     return model
 
 
 def build_model(input_shape, num_class, X_train, y_train, X_test, y_test):
-    model = create_model_tanh_two_layers(input_shape, num_class)
+    model = create_model_tanh_two_layers(input_shape, num_class)    
     model.fit(X_train, y_train,
         batch_size=batch_size,
         epochs=nb_epoch,
         validation_data=(X_test, y_test),
         shuffle=True)
 
-    sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
-    model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
     return model
 
 
