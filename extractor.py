@@ -15,7 +15,7 @@ from keras.layers import Input, Flatten
 
 
 # params
-BATCH_SIZE = 40
+BATCH_SIZE = 700 # fine on GTX 980
 
 # const
 EXPECTED_SIZE = 224
@@ -31,10 +31,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Extract features from vector dataset using VGG16', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('dataset_file', help="Path to vector dataset input file")
     parser.add_argument('--features_file', default=FEATURES_FILE, help="Output path for features file")
+    parser.add_argument('--batch_size', default=BATCH_SIZE, help="Fit batch size")
 
     args = parser.parse_args()
     dataset_file = args.dataset_file
     features_file = args.features_file
+    batch_size = args.batch_size
 
     # loading dataset
     print('Loading preprocessed dataset: {}'.format(dataset_file))
@@ -57,7 +59,7 @@ if __name__ == '__main__':
 
     i = 0
     while i < dataset.data.nrows:
-        end = i + BATCH_SIZE
+        end = i + batch_size
         data_chunk = dataset.data[i:end]
         label_chunk = dataset.labels[i:end]
         i = end
