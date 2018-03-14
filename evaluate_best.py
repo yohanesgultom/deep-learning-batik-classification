@@ -92,11 +92,6 @@ if __name__ == '__main__':
 
     input_dim = (np.prod(FEATURES_DIM),)
 
-    print('Loading validation dataset: {}'.format(val_file))
-    val_datafile = tables.open_file(val_file, mode='r')
-    val_dataset = val_datafile.root
-    print('Validation data: {}'.format((val_dataset.data.nrows,) + val_dataset.data[0].shape))
-
     model = None
     if model_json is not None and model_weights is not None:
         print('Loading model structure: {}'.format(model_json))
@@ -108,6 +103,11 @@ if __name__ == '__main__':
         train_datafile = tables.open_file(train_file, mode='r')
         train_dataset = train_datafile.root
         print('Train data: {}'.format((train_dataset.data.nrows,) + train_dataset.data[0].shape))
+
+        print('Loading validation dataset: {}'.format(val_file))
+        val_datafile = tables.open_file(val_file, mode='r')
+        val_dataset = val_datafile.root
+        print('Validation data: {}'.format((val_dataset.data.nrows,) + val_dataset.data[0].shape))
 
         model = build_model(
             input_dim, 
