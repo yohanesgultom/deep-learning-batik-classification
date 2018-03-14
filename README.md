@@ -50,7 +50,7 @@ Following commands are executing these steps:
 
 1. Convert images dataset to vector [h5 format](http://www.h5py.org/):  
 2. Extract features from dataset (still in h5 format)
-3. Train & evaluate 4 variations of NN (vary by number of hidden layers and activation function) with cross validation
+3. Train & evaluate variations of NN (vary by number of hidden layers and activation function) with cross validation
 
 ```
 python preprocess.py train_data_dir --vector_file train.h5
@@ -62,6 +62,18 @@ python evaluate.py train.features.h5 test.features.h5
 For more options run each file with `-h` option. eg: `python preprocess.py -h`
 
 > Process time is around 40 minutes with GTX 980 4 GB
+
+### VGG16 + scikit-learn classifiers
+
+Follow the same steps as VGG16 + Softmax NN, but use `evaluate_sklearn.py` instead of `evaluate.py`:
+
+```
+python preprocess.py train_data_dir --vector_file train.h5
+python preprocess.py test_data_dir --vector_file test.h5
+python extractor.py train.h5 --features_file train.features.h5
+python extractor.py test.h5 --features_file test.features.h5
+python evaluate_sklearn.py train.features.h5 test.features.h5
+```
 
 ### Classification using SIFT Bag of Words + SVM
 

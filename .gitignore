@@ -4,6 +4,7 @@
 *.log
 *.pkl
 *.pyc
+model*.json
 bin/
 include/
 lib/
