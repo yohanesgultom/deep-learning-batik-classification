@@ -8,7 +8,6 @@ import numpy as np
 import sys
 import tables
 import argparse
-import json
 from keras.models import Sequential, Model
 from keras.layers.core import Flatten, Dense, Dropout
 from keras.optimizers import SGD
@@ -64,8 +63,7 @@ if __name__ == '__main__':
     test_file = args.test_file
     train_file = args.train_file
     val_file = args.val_file
-    model_json = args.model_json
-    model_weights = args.model_weights
+    model_file = args.model_file
     n_folds = args.n_folds
     nb_epoch = args.nb_epoch
     batch_size = args.batch_size
@@ -77,8 +75,7 @@ if __name__ == '__main__':
 
     model = None
     if model_file is not None:
-        print('Loading model structure: {}'.format(model_json))
-        print('Loading model weights: {}'.format(model_weights))
+        print('Loading model: {}'.format(model_file))
         model = load_model(model_file)
 
     elif train_file is not None:
