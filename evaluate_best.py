@@ -12,15 +12,14 @@ import json
 from keras.models import Sequential, Model
 from keras.layers.core import Flatten, Dense, Dropout
 from keras.optimizers import SGD
-from keras.models import model_from_json
+from keras.models import load_model
 from sklearn.metrics import accuracy_score
 
 # default training parameters
 CV = 7  
 BATCH_SIZE = 700 # fine on GTX 980 4 GB
 NB_EPOCH = 100
-MODEL_JSON = 'model.json'
-MODEL_WEIGHTS = 'model.weights.h5'
+MODEL_FILE = 'model.h5'
 
 # const
 # FEATURES_DIM = (512, 7, 7) # Theano
@@ -51,28 +50,12 @@ def build_model(input_shape, num_class, X_train, y_train, X_test, y_test):
     return model
 
 
-def save_model(model, model_json_file, weights_h5_file):
-    json_string = model.to_json()
-    with open(model_json_file, 'w') as f:
-        json.dump(json_string, f)
-    model.save_weights(weights_h5_file)
-
-
-def load_model(model_json_file, weights_h5_file):
-    model = None
-    with open(model_json_file, 'r') as f:
-        json_string = f.read()  
-        model = model_from_json(json_string)
-    return model
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Evaluate neural network classifiers using extracted dataset features', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('test_file', help="Path to test data (features) input file")
     parser.add_argument('--train_file', help="Path to train data (features) input file")
     parser.add_argument('--val_file', help="Path to validation data (features) input file")
-    parser.add_argument('--model_json', help="Path to JSON model structure input file")
-    parser.add_argument('--model_weights', help="Path to model weights input file")
+    parser.add_argument('--model_file', help="Path to complete model input file")
     parser.add_argument('--n_folds', type=int, default=CV, help="Number of folds (K) for K-fold cross validation")
     parser.add_argument('--nb_epoch', type=int, default=NB_EPOCH, help="Training epoch")
     parser.add_argument('--batch_size', type=int, default=BATCH_SIZE, help="Training batch size")
@@ -93,10 +76,10 @@ if __name__ == '__main__':
     input_dim = (np.prod(FEATURES_DIM),)
 
     model = None
-    if model_json is not None and model_weights is not None:
+    if model_file is not None:
         print('Loading model structure: {}'.format(model_json))
         print('Loading model weights: {}'.format(model_weights))
-        model = load_model(model_json, model_weights)
+        model = load_model(model_file)
 
     elif train_file is not None:
         print('Loading train dataset: {}'.format(train_file))
@@ -118,9 +101,8 @@ if __name__ == '__main__':
             val_dataset.labels[:], 
         )
 
-        print('Saving model structure: {}'.format(MODEL_JSON))
-        print('Saving model weights: {}'.format(MODEL_WEIGHTS))
-        save_model(model, MODEL_JSON, MODEL_WEIGHTS)
+        print('Saving model: {}'.format(MODEL_FILE))
+        model.save(MODEL_FILE)
 
     else:
         raise ValueError('No saved model or training data provided')
