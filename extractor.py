@@ -49,7 +49,7 @@ if __name__ == '__main__':
     input = Input(shape=EXPECTED_DIM, name='input')
     output = vgg16(input)
     x = Flatten(name='flatten')(output)
-    extractor = Model(inputs=input, inputs=x)    
+    extractor = Model(inputs=input, outputs=x)    
 
     print('Feature extraction')
     flatten_dim = np.prod(FEATURES_DIM)
