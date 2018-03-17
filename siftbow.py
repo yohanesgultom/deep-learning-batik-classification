@@ -10,7 +10,7 @@ import cv2
 import numpy as np
 import pickle
 import argparse
-from helper import get_dir_info, build_extractor, build_dataset
+from helper import get_dir_info, build_dictionary, build_dataset_sklearn
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import cross_val_score
 from sklearn.preprocessing import StandardScaler
@@ -30,7 +30,6 @@ classfiers = [
     RandomForestClassifier(),
 ]
 
-# default params
 CV = 7
 dictionary_size = 2800
 bow_sift_dictionary = 'bow_sift_dictionary.pkl'
@@ -58,7 +57,6 @@ if __name__ == '__main__':
     print('Collecting train data..')
     if os.path.isfile(bow_sift_dictionary) and os.path.isfile(bow_sift_features) and os.path.isfile(bow_sift_features_labels):
         dictionary = pickle.load(open(bow_sift_dictionary, "rb"))
-        extractor, _ = build_extractor(sift, dictionary=dictionary)
         train_desc = pickle.load(open(bow_sift_features, "rb"))
         train_labels = pickle.load(open(bow_sift_features_labels, "rb"))
         print('Loaded from {}'.format(bow_sift_dictionary))
@@ -66,12 +64,12 @@ if __name__ == '__main__':
         print('Loaded from {}'.format(bow_sift_features_labels))
     else:        
         dir_names, file_paths, file_dir_indexes = get_dir_info(train_dir_path)
-        extractor, dictionary = build_extractor(sift, dir_names=dir_names, file_paths=file_paths, dictionary_size=dictionary_size)
-        train_desc, train_labels = build_dataset(
+        dictionary = build_dictionary(sift, dir_names, file_paths, dictionary_size)
+        train_desc, train_labels = build_dataset_sklearn(
             dir_names, 
             file_paths,
             file_dir_indexes,
-            extractor,
+            dictionary,
             sift
         )
         pickle.dump(dictionary, open(bow_sift_dictionary, "wb"))
@@ -87,11 +85,11 @@ if __name__ == '__main__':
         print('Loaded from {}'.format(bow_sift_features_labels_test))
     else:
         dir_names, file_paths, file_dir_indexes = get_dir_info(test_dir_path)
-        test_desc, test_labels = build_dataset(
+        test_desc, test_labels = build_dataset_sklearn(
             dir_names, 
             file_paths,
             file_dir_indexes,
-            extractor,
+            dictionary,
             sift
         )
         pickle.dump(test_desc, open(bow_sift_features_test, "wb"))
@@ -114,7 +112,7 @@ if __name__ == '__main__':
     y = np.concatenate((y_train, y_test), axis=0)
     print('Dataset: {}'.format(X.shape))
     
-    for classifier in classfiers:
+    for classifier in classfiers:        
         # cross_validate
         scores = cross_val_score(classifier, X, y, cv=n_folds)
         print("{} CV accuracy: {:0.2f} (+/- {:0.2f})".format(type(classifier).__name__, scores.mean(), scores.std() * 2))

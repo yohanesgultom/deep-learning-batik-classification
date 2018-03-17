@@ -32,24 +32,6 @@ MAX_VALUE = 255
 MEDIAN_VALUE = MAX_VALUE / 2.0
 
 
-def square_slice_generator(data, size, slices_per_axis=5):
-    if data.shape[0] <= size or data.shape[1] <= size:
-        yield(resize(data, size))
-    else:
-        remaining_rows = data.shape[0] - size
-        remaining_cols = data.shape[1] - size
-        slide_delta_rows = remaining_rows / slices_per_axis
-        slide_delta_cols = remaining_cols / slices_per_axis
-        for i in range(slices_per_axis):
-            row_start = i + i * slide_delta_rows
-            row_end = row_start + size
-            for j in range(slices_per_axis):
-                col_start = j + j * slide_delta_cols
-                col_end = col_start + size
-                tmp = data[row_start:row_end, col_start:col_end]
-                yield(tmp)
-
-
 def resize(data, size):
     return cv2.resize(data, (size, size))
 
@@ -84,8 +66,9 @@ def append_data_and_label(m, c, dataset, labels):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Preprocess and vectorize images dataset', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('dataset_path', help="Path to raw dataset directory")
-    parser.add_argument('--classes_file', default=DATASET_INDEX_PATH, help="Output path for dataset classes index")
-    parser.add_argument('--vector_file', default=DATASET_PATH, help="Output path for preprocessed and vectorized dataset")
+    parser.add_argument('--classes_file', '-c', default=DATASET_INDEX_PATH, help="Output path for dataset classes index")
+    parser.add_argument('--vector_file', '-v', default=DATASET_PATH, help="Output path for preprocessed and vectorized dataset")
+    parser.add_argument('--grayscale', '-g', action='store_true', help="Convert images to grayscale")
     parser.add_argument('--rotate', '-r', metavar='ANGLE', type=int, default=0, help="Rotate images to certain angle (integer)")
     parser.add_argument('--zoomin', '-z', metavar='SCALE', type=float, default=1.0, help="Zoom in images to certain Scale (float)")
 
@@ -93,6 +76,7 @@ if __name__ == '__main__':
     mypath = args.dataset_path
     index_file = args.classes_file
     dataset_file = args.vector_file
+    grayscale = args.grayscale
     rotate = args.rotate
     scale = args.zoomin
 
@@ -126,6 +110,8 @@ if __name__ == '__main__':
                         img = imutils.rotate(img, rotate) if rotate is not 0 else img
                         # scale
                         img = zoomin(img, scale) if scale > 1 else img
+                        # grayscale with 3 channels
+                        img = cv2.cvtColor(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2RGB) if grayscale else img
                         # normalize and filter
                         img = normalize_and_filter(img)
                         # gather stat

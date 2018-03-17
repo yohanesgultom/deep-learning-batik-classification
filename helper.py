@@ -78,7 +78,7 @@ def build_dictionary(xfeatures2d, dir_names, file_paths, dictionary_size):
     for i in range(num_files):
         p = file_paths[i]
         image = cv2.imread(p)
-        gray = cv2.cvtColor(image, cv2.cv2.IMREAD_GRAYSCALE)
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         kp, dsc = xfeatures2d.detectAndCompute(gray, None)
         desc_list.extend(dsc)
         bar.update(i)

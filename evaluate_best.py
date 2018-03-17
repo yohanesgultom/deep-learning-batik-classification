@@ -25,6 +25,14 @@ MODEL_FILE = 'model.h5'
 FEATURES_DIM = (7, 7, 512) # TensorFlow
 EXPECTED_CLASS = 5
 
+def create_model_relu_tanh_two_layers(input_shape, num_class):
+    model = Sequential()
+    model.add(Dense(4096, activation='relu', input_shape=input_shape))
+    model.add(Dropout(0.6))
+    model.add(Dense(4096, activation='tanh'))
+    model.add(Dropout(0.6))
+    model.add(Dense(num_class, activation='softmax', init='uniform'))
+    return model
 
 def create_model_tanh_two_layers(input_shape, num_class):
     model = Sequential()
@@ -39,7 +47,8 @@ def create_model_tanh_two_layers(input_shape, num_class):
 
 
 def build_model(input_shape, num_class, X_train, y_train, X_test, y_test):
-    model = create_model_tanh_two_layers(input_shape, num_class)    
+    # model = create_model_tanh_two_layers(input_shape, num_class)    
+    model = create_model_relu_tanh_two_layers(input_shape, num_class)    
     model.fit(X_train, y_train,
         batch_size=batch_size,
         epochs=nb_epoch,
