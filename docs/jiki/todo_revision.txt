@@ -45,15 +45,16 @@ In progress
 
 
 
-SLICES dictionary_size = 2800, data = 2092, cv = 7
-LogisticRegression CV accuracy: 0.89 (+/- 0.09)
-SVC CV accuracy: 0.85 (+/- 0.08)
-MLPClassifier CV accuracy: 0.88 (+/- 0.08)
-DecisionTreeClassifier CV accuracy: 0.65 (+/- 0.05)
-GradientBoostingClassifier CV accuracy: 0.83 (+/- 0.03)
-RandomForestClassifier CV accuracy: 0.75 (+/- 0.03)
+SLICES SURF dictionary_size = 2800, data = 2092, cv = 7
+LogisticRegression CV accuracy: 0.88 (+/- 0.06)
+SVC CV accuracy: 0.82 (+/- 0.07)
+MLPClassifier CV accuracy: 0.88 (+/- 0.06)
+DecisionTreeClassifier CV accuracy: 0.65 (+/- 0.06)
+GradientBoostingClassifier CV accuracy: 0.83 (+/- 0.05)
+RandomForestClassifier CV accuracy: 0.73 (+/- 0.06)
 
 
+SLICES EPOCH 100 COLOR
 create_model_sigmoid_two_layers CV accuracy: 0.76 (+/- 0.05)
 create_model_relu_two_layers CV accuracy: 0.81 (+/- 0.06)
 create_model_tanh_two_layers CV accuracy: 0.79 (+/- 0.06)

@@ -46,7 +46,7 @@ def create_model_tanh_two_layers(input_shape, num_class):
     return model
 
 
-def build_model(input_shape, num_class, X_train, y_train, X_test, y_test):
+def build_model(input_shape, num_class, X_train, y_train, X_test, y_test, nb_epoch):
     # model = create_model_tanh_two_layers(input_shape, num_class)    
     model = create_model_relu_tanh_two_layers(input_shape, num_class)    
     model.fit(X_train, y_train,
@@ -105,6 +105,7 @@ if __name__ == '__main__':
             train_dataset.labels[:], 
             val_dataset.data[:], 
             val_dataset.labels[:], 
+            nb_epoch,
         )
 
         print('Saving model: {}'.format(MODEL_FILE))
