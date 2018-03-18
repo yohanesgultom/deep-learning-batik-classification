@@ -52,8 +52,8 @@ if __name__ == '__main__':
 	train_datafile.close()
 	test_datafile.close()
 
-	print('Cross validation with k={}..'.format(CV))
+	print('Cross validation with k={}..'.format(n_folds))
 	for classifier in classfiers:
 		# cross_validate
-		scores = cross_val_score(classifier, X, y, cv=CV)
+		scores = cross_val_score(classifier, X, y, cv=n_folds)
 		print("{} CV accuracy: {:0.2f} (+/- {:0.2f})".format(type(classifier).__name__, scores.mean(), scores.std() * 2))
