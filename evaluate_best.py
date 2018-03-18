@@ -10,7 +10,7 @@ import tables
 import argparse
 from keras.models import Sequential, Model
 from keras.layers.core import Flatten, Dense, Dropout
-from keras.optimizers import SGD
+from keras.optimizers import SGD, Adam
 from keras.models import load_model
 from sklearn.metrics import accuracy_score
 
@@ -45,7 +45,7 @@ def create_model_tanh_two_layers(input_shape, num_class):
 
 def create_model_sklearn(input_shape, num_class):
     model = Sequential()
-    model.add(Dense(100, activation='relu', input_shape=input_shape))
+    model.add(Dense(FEATURES_DIM[2], activation='relu', input_shape=input_shape))
     model.add(Dropout(0.6))
     model.add(Dense(num_class, activation='softmax', init='uniform'))
     return model

@@ -41,8 +41,13 @@ OK
 In progress
 
 
-
-
+SLICES SIFT dictionary_size = 2800, data = 2092, cv = 7
+LogisticRegression CV accuracy: 0.89 (+/- 0.10)
+SVC CV accuracy: 0.85 (+/- 0.12)
+MLPClassifier CV accuracy: 0.88 (+/- 0.08)
+DecisionTreeClassifier CV accuracy: 0.63 (+/- 0.05)
+GradientBoostingClassifier CV accuracy: 0.82 (+/- 0.06)
+RandomForestClassifier CV accuracy: 0.72 (+/- 0.08)
 
 
 SLICES SURF dictionary_size = 2800, data = 2092, cv = 7

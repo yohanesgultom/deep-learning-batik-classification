@@ -14,25 +14,25 @@ from sklearn.neural_network import MLPClassifier
 
 # config
 classfiers = [
-    LogisticRegression(),
-    SVC(),    
-    MLPClassifier(),
-    DecisionTreeClassifier(),
-    GradientBoostingClassifier(),
-    RandomForestClassifier(),
+	LogisticRegression(),
+	SVC(),    
+	MLPClassifier(),
+	DecisionTreeClassifier(),
+	GradientBoostingClassifier(),
+	RandomForestClassifier(),
 ]
 CV = 7
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Evaluate scikit-learn classifiers using extracted dataset features', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('train_file', help="Path to train data (features) input file")
-    parser.add_argument('test_file', help="Path to test data (features) input file")
-    parser.add_argument('--n_folds', type=int, default=CV, help="Number of folds (K) for K-fold cross validation")
+	parser.add_argument('train_file', help="Path to train data (features) input file")
+	parser.add_argument('test_file', help="Path to test data (features) input file")
+	parser.add_argument('--n_folds', type=int, default=CV, help="Number of folds (K) for K-fold cross validation")
 
-    args = parser.parse_args()
-    train_file = args.train_file
-    test_file = args.test_file
-    n_folds = args.n_folds
+	args = parser.parse_args()
+	train_file = args.train_file
+	test_file = args.test_file
+	n_folds = args.n_folds
 
 	# loading dataset
 	print('Loading train dataset: {}'.format(train_file))
