@@ -43,14 +43,20 @@ def create_model_tanh_two_layers(input_shape, num_class):
     model.add(Dense(num_class, activation='softmax', init='uniform'))
     return model
 
+def create_model_sklearn(input_shape, num_class):
+    model = Sequential()
+    model.add(Dense(100, activation='relu', input_shape=input_shape))
+    model.add(Dropout(0.6))
+    model.add(Dense(num_class, activation='softmax', init='uniform'))
+    return model
 
 def build_model(input_shape, num_class, X_train, y_train, X_test, y_test, nb_epoch):
-    # model = create_model_tanh_two_layers(input_shape, num_class)    
-    model = create_model_relu_tanh_two_layers(input_shape, num_class)  
+    model = create_model_sklearn(input_shape, num_class)  
 
     # set optimization function
-    sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
-    model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+    # optimizer = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
+    optimizer = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+    model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
   
     model.fit(X_train, y_train,
         batch_size=batch_size,
@@ -83,7 +89,7 @@ if __name__ == '__main__':
     print('batch_size: {}'.format(batch_size))
     print('nb_epoch: {}'.format(nb_epoch))
 
-    input_dim = (np.prod(FEATURES_DIM),)
+    input_dim = (FEATURES_DIM[2],)
 
     model = None
     if model_file is not None:

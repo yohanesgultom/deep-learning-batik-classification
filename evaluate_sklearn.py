@@ -1,6 +1,7 @@
 import sys
 import tables
 import numpy as np
+import argparse
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import cross_val_score
 from sklearn.preprocessing import StandardScaler
@@ -23,9 +24,15 @@ classfiers = [
 CV = 7
 
 if __name__ == '__main__':
-	train_file = sys.argv[1]
-	test_file = sys.argv[2]
-	n_folds = int(sys.argv[3]) if len(sys.argv) > 3 else CV
+	parser = argparse.ArgumentParser(description='Evaluate scikit-learn classifiers using extracted dataset features', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('train_file', help="Path to train data (features) input file")
+    parser.add_argument('test_file', help="Path to test data (features) input file")
+    parser.add_argument('--n_folds', type=int, default=CV, help="Number of folds (K) for K-fold cross validation")
+
+    args = parser.parse_args()
+    train_file = args.train_file
+    test_file = args.test_file
+    n_folds = args.n_folds
 
 	# loading dataset
 	print('Loading train dataset: {}'.format(train_file))

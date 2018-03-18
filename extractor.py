@@ -28,47 +28,46 @@ FEATURES_DIM = (7, 7, 512) # TensorFlow
 EXPECTED_CLASS = 5
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Extract features from vector dataset using VGG16', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('dataset_file', help="Path to vector dataset input file")
-    parser.add_argument('--features_file', default=FEATURES_FILE, help="Output path for features file")
-    parser.add_argument('--batch_size', default=BATCH_SIZE, help="Fit batch size")
+	parser = argparse.ArgumentParser(description='Extract features from vector dataset using VGG16', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+	parser.add_argument('dataset_file', help="Path to vector dataset input file")
+	parser.add_argument('--features_file', default=FEATURES_FILE, help="Output path for features file")
+	parser.add_argument('--batch_size', default=BATCH_SIZE, help="Fit batch size")
 
-    args = parser.parse_args()
-    dataset_file = args.dataset_file
-    features_file = args.features_file
-    batch_size = args.batch_size
+	args = parser.parse_args()
+	dataset_file = args.dataset_file
+	features_file = args.features_file
+	batch_size = args.batch_size
 
-    # loading dataset
-    print('Loading preprocessed dataset: {}'.format(dataset_file))
-    datafile = tables.open_file(dataset_file, mode='r')
-    dataset = datafile.root
-    print((dataset.data.nrows,) + dataset.data[0].shape)
+	# loading dataset
+	print('Loading preprocessed dataset: {}'.format(dataset_file))
+	datafile = tables.open_file(dataset_file, mode='r')
+	dataset = datafile.root
+	print((dataset.data.nrows,) + dataset.data[0].shape)
 
-    # feature extractor    
-    vgg16 = VGG16(weights='imagenet', include_top=False)
-    input = Input(shape=EXPECTED_DIM, name='input')
-    output = vgg16(input)
-    x = Flatten(name='flatten')(output)
-    extractor = Model(inputs=input, outputs=x)    
+	# feature extractor    
+	vgg16 = VGG16(weights='imagenet', include_top=False, pooling='avg')
+	input = Input(shape=EXPECTED_DIM, name='input')
+	output = vgg16(input)
+	extractor = Model(inputs=input, outputs=output)
 
-    print('Feature extraction')
-    flatten_dim = np.prod(FEATURES_DIM)
-    features_datafile = tables.open_file(features_file, mode='w')
-    features_data = features_datafile.create_earray(features_datafile.root, 'data', tables.Float32Atom(shape=flatten_dim), (0,), 'dream')
-    features_labels = features_datafile.create_earray(features_datafile.root, 'labels', tables.UInt8Atom(shape=(EXPECTED_CLASS)), (0,), 'dream')
+	print('Feature extraction')
+	flatten_dim = (FEATURES_DIM[2],)
+	features_datafile = tables.open_file(features_file, mode='w')
+	features_data = features_datafile.create_earray(features_datafile.root, 'data', tables.Float32Atom(shape=flatten_dim), (0,), 'dream')
+	features_labels = features_datafile.create_earray(features_datafile.root, 'labels', tables.UInt8Atom(shape=(EXPECTED_CLASS)), (0,), 'dream')
 
-    i = 0
-    while i < dataset.data.nrows:
-        end = i + batch_size
-        data_chunk = dataset.data[i:end]
-        label_chunk = dataset.labels[i:end]
-        i = end
-        features = extractor.predict(data_chunk, verbose=1)
-        features_data.append(features)
-        features_labels.append(label_chunk)
+	i = 0
+	while i < dataset.data.nrows:
+		end = i + batch_size
+		data_chunk = dataset.data[i:end]
+		label_chunk = dataset.labels[i:end]
+		i = end
+		features = extractor.predict(data_chunk, verbose=1)
+		features_data.append(features)
+		features_labels.append(label_chunk)
 
-    assert features_datafile.root.data.nrows == dataset.data.nrows
-    assert features_datafile.root.labels.nrows == dataset.labels.nrows
+	assert features_datafile.root.data.nrows == dataset.data.nrows
+	assert features_datafile.root.labels.nrows == dataset.labels.nrows
 
-    # close feature file
-    features_datafile.close()
+	# close feature file
+	features_datafile.close()

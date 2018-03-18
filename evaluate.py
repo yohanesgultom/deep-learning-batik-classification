@@ -149,7 +149,7 @@ if __name__ == '__main__':
     ]
 
     results = []
-    input_dim = (np.prod(FEATURES_DIM),)
+    input_dim = (FEATURES_DIM[2],)
     for j, create_model in enumerate(model_creators):
         skf = StratifiedKFold(y.argmax(1), n_folds=n_folds, shuffle=True)
         scores = []
