@@ -22,15 +22,15 @@ from sklearn.neural_network import MLPClassifier
 
 # config
 classfiers = [
-    LogisticRegression(),
-    SVC(),    
-    MLPClassifier(),
-    DecisionTreeClassifier(),
-    GradientBoostingClassifier(),
-    RandomForestClassifier(),
+	LogisticRegression(),
+	SVC(),    
+	MLPClassifier(),
+	DecisionTreeClassifier(),
+	GradientBoostingClassifier(),
+	RandomForestClassifier(),
 ]
 
-CV = 7
+CV = 10
 dictionary_size = 2800
 bow_surf_dictionary = 'bow_surf_dictionary.pkl'
 bow_surf_features = 'bow_surf_features.pkl'
@@ -39,90 +39,97 @@ bow_surf_features_test = 'bow_surf_features_test.pkl'
 bow_surf_features_labels_test = 'bow_surf_features_labels_test.pkl'
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Preprocess, vectorize, extract SURF features and evaluate classifiers', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('train_dir_path', help="Path to raw train dataset directory")
-    parser.add_argument('test_dir_path', help="Path to raw test dataset directory")
-    parser.add_argument('--n_folds', '-n', type=int, default=CV, help="Number of folds (K) for K-fold cross validation")
-    parser.add_argument('--dictionary_size', '-d', type=int, default=dictionary_size, help="BoW dictionary size (k-means clusters size)")
+	parser = argparse.ArgumentParser(description='Preprocess, vectorize, extract SURF features and evaluate classifiers', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+	parser.add_argument('train_dir_path', help="Path to raw train dataset directory")
+	parser.add_argument('test_dir_path', help="Path to raw test dataset directory")
+	parser.add_argument('--n_folds', '-n', type=int, default=CV, help="Number of folds (K) for K-fold cross validation")
+	parser.add_argument('--dictionary_size', '-d', type=int, default=dictionary_size, help="BoW dictionary size (k-means clusters size)")
+	parser.add_argument('--output_model', '-o', default='surf_best_classifier.pkl', help="Best model output file")
 
-    args = parser.parse_args()
-    train_dir_path = args.train_dir_path
-    test_dir_path = args.test_dir_path
-    n_folds = args.n_folds
-    dictionary_size = args.dictionary_size
+	args = parser.parse_args()
+	train_dir_path = args.train_dir_path
+	test_dir_path = args.test_dir_path
+	n_folds = args.n_folds
+	dictionary_size = args.dictionary_size
 
-    surf = cv2.xfeatures2d.SURF_create()
+	surf = cv2.xfeatures2d.SURF_create()
 
-    # prepare train data
-    print('Collecting train data..')
-    if os.path.isfile(bow_surf_dictionary) and os.path.isfile(bow_surf_features) and os.path.isfile(bow_surf_features_labels):
-        dictionary = pickle.load(open(bow_surf_dictionary, "rb"))
-        train_desc = pickle.load(open(bow_surf_features, "rb"))
-        train_labels = pickle.load(open(bow_surf_features_labels, "rb"))
-        print('Loaded from {}'.format(bow_surf_dictionary))
-        print('Loaded from {}'.format(bow_surf_features))
-        print('Loaded from {}'.format(bow_surf_features_labels))
-    else:        
-        dir_names, file_paths, file_dir_indexes = get_dir_info(train_dir_path)
-        dictionary = build_dictionary(surf, dir_names, file_paths, dictionary_size)
-        train_desc, train_labels = build_dataset_sklearn(
-            dir_names, 
-            file_paths,
-            file_dir_indexes,
-            dictionary,
-            surf
-        )
-        pickle.dump(dictionary, open(bow_surf_dictionary, "wb"))
-        pickle.dump(train_desc, open(bow_surf_features, "wb"))
-        pickle.dump(train_labels, open(bow_surf_features_labels, "wb"))
+	# prepare train data
+	print('Collecting train data..')
+	if os.path.isfile(bow_surf_dictionary) and os.path.isfile(bow_surf_features) and os.path.isfile(bow_surf_features_labels):
+		dictionary = pickle.load(open(bow_surf_dictionary, "rb"))
+		train_desc = pickle.load(open(bow_surf_features, "rb"))
+		train_labels = pickle.load(open(bow_surf_features_labels, "rb"))
+		print('Loaded from {}'.format(bow_surf_dictionary))
+		print('Loaded from {}'.format(bow_surf_features))
+		print('Loaded from {}'.format(bow_surf_features_labels))
+	else:        
+		dir_names, file_paths, file_dir_indexes = get_dir_info(train_dir_path)
+		dictionary = build_dictionary(surf, dir_names, file_paths, dictionary_size)
+		train_desc, train_labels = build_dataset_sklearn(
+			dir_names, 
+			file_paths,
+			file_dir_indexes,
+			dictionary,
+			surf
+		)
+		pickle.dump(dictionary, open(bow_surf_dictionary, "wb"))
+		pickle.dump(train_desc, open(bow_surf_features, "wb"))
+		pickle.dump(train_labels, open(bow_surf_features_labels, "wb"))
 
-    # prepare test data
-    print('Collecting test data..')
-    if os.path.isfile(bow_surf_features_test) and os.path.isfile(bow_surf_features_labels_test):
-        test_desc = pickle.load(open(bow_surf_features_test, "rb"))
-        test_labels = pickle.load(open(bow_surf_features_labels_test, "rb"))
-        print('Loaded from {}'.format(bow_surf_features_test))
-        print('Loaded from {}'.format(bow_surf_features_labels_test))
-    else:
-        dir_names, file_paths, file_dir_indexes = get_dir_info(test_dir_path)
-        test_desc, test_labels = build_dataset_sklearn(
-            dir_names, 
-            file_paths,
-            file_dir_indexes,
-            dictionary,
-            surf
-        )
-        pickle.dump(test_desc, open(bow_surf_features_test, "wb"))
-        pickle.dump(test_labels, open(bow_surf_features_labels_test, "wb"))
+	# prepare test data
+	print('Collecting test data..')
+	if os.path.isfile(bow_surf_features_test) and os.path.isfile(bow_surf_features_labels_test):
+		test_desc = pickle.load(open(bow_surf_features_test, "rb"))
+		test_labels = pickle.load(open(bow_surf_features_labels_test, "rb"))
+		print('Loaded from {}'.format(bow_surf_features_test))
+		print('Loaded from {}'.format(bow_surf_features_labels_test))
+	else:
+		dir_names, file_paths, file_dir_indexes = get_dir_info(test_dir_path)
+		test_desc, test_labels = build_dataset_sklearn(
+			dir_names, 
+			file_paths,
+			file_dir_indexes,
+			dictionary,
+			surf
+		)
+		pickle.dump(test_desc, open(bow_surf_features_test, "wb"))
+		pickle.dump(test_labels, open(bow_surf_features_labels_test, "wb"))
 
-    print('Train & test classifiers. CV = {}..'.format(n_folds))
-    X_train = np.array(train_desc)
-    y_train = np.array(train_labels)
-    X_test = np.array(test_desc)
-    y_test = np.array(test_labels)
+	print('Train & test classifiers. CV = {}..'.format(n_folds))
+	X_train = np.array(train_desc)
+	y_train = np.array(train_labels)
+	X_test = np.array(test_desc)
+	y_test = np.array(test_labels)
 
-    # scale data
-    # scaler = StandardScaler()
-    # scaler.fit(X_train)
-    # X_train = scaler.transform(X_train)
-    # X_test = scaler.transform(X_test)
+	# scale data
+	# scaler = StandardScaler()
+	# scaler.fit(X_train)
+	# X_train = scaler.transform(X_train)
+	# X_test = scaler.transform(X_test)
 
-    # for CV
-    X = np.concatenate((X_train, X_test), axis=0)
-    y = np.concatenate((y_train, y_test), axis=0)
-    print('Dataset: {}'.format(X.shape))
-    
-    for classifier in classfiers:        
-        # cross_validate
-        scores = cross_val_score(classifier, X, y, cv=n_folds)
-        print("{} CV accuracy: {:0.2f} (+/- {:0.2f})".format(type(classifier).__name__, scores.mean(), scores.std() * 2))
-
-        # # no cv
-        # classifier.fit(X_train, y_train)
-        # y_predict = classifier.predict(X_test)
-        # acc = accuracy_score(y_test, y_predict)
-        # print('Accuracy: {}'.format(acc))
-        # print('Confusion matrix: ')
-        # cm = confusion_matrix(y_test, y_predict)
-        # print(cm)
-        # print('\n')
+	# for CV
+	X = np.concatenate((X_train, X_test), axis=0)
+	y = np.concatenate((y_train, y_test), axis=0)
+	print('Dataset: {}'.format(X.shape))
+	
+	best_classifier = None
+	best_score = 0.0
+	best_stdev = 0.0
+	for classifier in classfiers:
+		# cross_validate
+		scores = cross_val_score(classifier, X, y, cv=n_folds)
+		mean = scores.mean()
+		stdev = scores.std() * 2 
+		print("{} CV accuracy: {:0.2f} (+/- {:0.2f})".format(type(classifier).__name__, mean, stdev))
+		# find the best
+		if (mean > best_score) or (mean == best_score and stdev < best_stdev):
+			best_classifier = classfier
+			best_score = mean
+			best_stdev = stdev
+	
+	if best_classifier is not None:
+		print("Saving the best classifer: {} {} +/- {}".format(type(best_classifier).__name__, best_score, best_stdev))
+		best_classifier.fit(X, y)
+		pickle.dump(best_classifier, open(output_model, 'wb'))
+		print("Model saved: {}".format(output_model))

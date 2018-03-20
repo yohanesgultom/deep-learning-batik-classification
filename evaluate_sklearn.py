@@ -21,17 +21,19 @@ classfiers = [
 	GradientBoostingClassifier(),
 	RandomForestClassifier(),
 ]
-CV = 7
+CV = 10
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Evaluate scikit-learn classifiers using extracted dataset features', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 	parser.add_argument('train_file', help="Path to train data (features) input file")
 	parser.add_argument('test_file', help="Path to test data (features) input file")
+	parser.add_argument('--output_model', '-o', default='vgg16_best_classifier.pkl', help="Best model output file")
 	parser.add_argument('--n_folds', type=int, default=CV, help="Number of folds (K) for K-fold cross validation")
 
 	args = parser.parse_args()
 	train_file = args.train_file
 	test_file = args.test_file
+	output_model = args.output_model
 	n_folds = args.n_folds
 
 	# loading dataset
@@ -53,7 +55,23 @@ if __name__ == '__main__':
 	test_datafile.close()
 
 	print('Cross validation with k={}..'.format(n_folds))
+	best_classifier = None
+	best_score = 0.0
+	best_stdev = 0.0
 	for classifier in classfiers:
 		# cross_validate
 		scores = cross_val_score(classifier, X, y, cv=n_folds)
-		print("{} CV accuracy: {:0.2f} (+/- {:0.2f})".format(type(classifier).__name__, scores.mean(), scores.std() * 2))
+		mean = scores.mean()
+		stdev = scores.std() * 2 
+		print("{} CV accuracy: {:0.2f} (+/- {:0.2f})".format(type(classifier).__name__, mean, stdev))
+		# find the best
+		if (mean > best_score) or (mean == best_score and stdev < best_stdev):
+			best_classifier = classfier
+			best_score = mean
+			best_stdev = stdev
+	
+	if best_classifier is not None:
+		print("Saving the best classifer: {} {} +/- {}".format(type(best_classifier).__name__, best_score, best_stdev))
+		best_classifier.fit(X, y)
+		pickle.dump(best_classifier, open(output_model, 'wb'))
+		print("Model saved: {}".format(output_model))

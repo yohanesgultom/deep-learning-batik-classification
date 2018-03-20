@@ -27,6 +27,14 @@ FEATURES_FILE = 'features.h5'
 FEATURES_DIM = (7, 7, 512) # TensorFlow
 EXPECTED_CLASS = 5
 
+
+def build_extractor(input_shape):
+	vgg16 = VGG16(weights='imagenet', include_top=False, pooling='avg')
+	input = Input(shape=input_shape, name='input')
+	output = vgg16(input)
+	return Model(inputs=input, outputs=output)
+
+
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Extract features from vector dataset using VGG16', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 	parser.add_argument('dataset_file', help="Path to vector dataset input file")
@@ -45,10 +53,7 @@ if __name__ == '__main__':
 	print((dataset.data.nrows,) + dataset.data[0].shape)
 
 	# feature extractor    
-	vgg16 = VGG16(weights='imagenet', include_top=False, pooling='avg')
-	input = Input(shape=EXPECTED_DIM, name='input')
-	output = vgg16(input)
-	extractor = Model(inputs=input, outputs=output)
+	extractor = build_extractor(EXPECTED_DIM)
 
 	print('Feature extraction')
 	flatten_dim = (FEATURES_DIM[2],)

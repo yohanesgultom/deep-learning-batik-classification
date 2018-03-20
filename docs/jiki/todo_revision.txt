@@ -40,6 +40,36 @@ OK
 
 In progress
 
+SLICES SIFT dictionary_size = 2800, data = 2092, cv = 10
+LogisticRegression CV accuracy: 0.88 (+/- 0.10)
+SVC CV accuracy: 0.82 (+/- 0.09)
+MLPClassifier CV accuracy: 0.88 (+/- 0.10)
+DecisionTreeClassifier CV accuracy: 0.65 (+/- 0.10)
+GradientBoostingClassifier CV accuracy: 0.82 (+/- 0.08)
+RandomForestClassifier CV accuracy: 0.74 (+/- 0.08)
+
+SLICES SURF dictionary_size = 2800, data = 2092, cv = 10
+LogisticRegression CV accuracy: 0.88 (+/- 0.08)
+SVC CV accuracy: 0.86 (+/- 0.13)
+MLPClassifier CV accuracy: 0.88 (+/- 0.08)
+DecisionTreeClassifier CV accuracy: 0.62 (+/- 0.05)
+GradientBoostingClassifier CV accuracy: 0.80 (+/- 0.07)
+RandomForestClassifier CV accuracy: 0.71 (+/- 0.06)
+
+SLICES VGG16 AVG POOL GRAY cv = 10, data = 2092
+LogisticRegression CV accuracy: 0.87 (+/- 0.08)
+SVC CV accuracy: 0.81 (+/- 0.19)
+MLPClassifier CV accuracy: 0.89 (+/- 0.07)
+DecisionTreeClassifier CV accuracy: 0.70 (+/- 0.11)
+GradientBoostingClassifier CV accuracy: 0.84 (+/- 0.07)
+RandomForestClassifier CV accuracy: 0.78 (+/- 0.05)
+
+
+
+
+
+
+==============
 
 SLICES SIFT dictionary_size = 2800, data = 2092, cv = 7
 LogisticRegression CV accuracy: 0.89 (+/- 0.10)
@@ -58,15 +88,6 @@ DecisionTreeClassifier CV accuracy: 0.65 (+/- 0.06)
 GradientBoostingClassifier CV accuracy: 0.83 (+/- 0.05)
 RandomForestClassifier CV accuracy: 0.73 (+/- 0.06)
 
-
-SLICES VGG16 GRAY cv = 7
-LogisticRegression CV accuracy: 0.81 (+/- 0.07)
-SVC CV accuracy: 0.37 (+/- 0.03)
-MLPClassifier CV accuracy: 0.81 (+/- 0.08)
-DecisionTreeClassifier CV accuracy: 0.57 (+/- 0.07)
-GradientBoostingClassifier CV accuracy: 0.76 (+/- 0.03)
-RandomForestClassifier CV accuracy: 0.69 (+/- 0.06)
-
 SLICES VGG16 AVG POOL GRAY cv = 7
 Cross validation with k=7..
 LogisticRegression CV accuracy: 0.86 (+/- 0.07)
@@ -75,7 +96,6 @@ MLPClassifier CV accuracy: 0.87 (+/- 0.07)
 DecisionTreeClassifier CV accuracy: 0.69 (+/- 0.07)
 GradientBoostingClassifier CV accuracy: 0.83 (+/- 0.06)
 RandomForestClassifier CV accuracy: 0.79 (+/- 0.08)
-
 
 SLICES EPOCH 100 COLOR
 create_model_sigmoid_two_layers CV accuracy: 0.76 (+/- 0.05)

@@ -9,6 +9,7 @@ import numpy as np
 import os
 import sys
 import progressbar
+import imutils
 from sklearn.cluster import MiniBatchKMeans
 
 def get_dir_info(dir_path):
@@ -51,7 +52,7 @@ def build_extractor(xfeatures2d, dir_names=None, file_paths=None, dictionary_siz
     return extractor, dictionary
 
 
-def build_dataset(dir_names, file_paths, file_dir_indexes, extractor, xfeatures2d):
+def build_dataset(dir_names, file_paths, file_dir_indexes, extractor, xfeatures2d, rotation=0, scale=1):
     assert len(file_paths) == len(file_dir_indexes)    
     X = [] # data
     y = file_dir_indexes # labels
@@ -62,6 +63,8 @@ def build_dataset(dir_names, file_paths, file_dir_indexes, extractor, xfeatures2
     for i in range(num_files):
         p = file_paths[i]
         im = cv2.imread(p, 1)
+        im = imutils.rotate(im, rotation) if rotation > 0 else im
+        im = zoomin(im, scale) if scale > 1 else im
         gray = cv2.cvtColor(im, cv2.IMREAD_GRAYSCALE)
         feature = extractor.compute(gray, xfeatures2d.detect(gray))
         X.extend(feature)
@@ -114,3 +117,38 @@ def build_dataset_sklearn(dir_names, file_paths, file_dir_indexes, dictionary, x
         bar.update(i)
     bar.finish()
     return X, y
+
+def resize(data, size):
+    return cv2.resize(data, (size, size))
+
+def zoomin(source, z):
+	if z < 1:
+		raise ValueError('z must be bigger than 1')
+	if z == 1:
+		return source
+
+	resized = imutils.resize(source, width=int(round(z * source.shape[1])))	
+	top_left = ((resized.shape[0] - source.shape[0]) / 2, (resized.shape[1] - source.shape[1]) / 2)
+	cropped = resized[top_left[0]:(top_left[0] + source.shape[0]), top_left[1]:(top_left[1] + source.shape[1])]
+	return cropped
+
+
+def read_and_transform_dataset(dir_names, rotation=0, scale=1):
+    X = [] # data
+    y = [] # labels
+
+    print('Reading images..')
+    for i in range(len(dir_names)):
+        p = dir_names[i]
+        subdir = os.path.join(dir_path, p)
+        for f in os.listdir(subdir):
+            file_path = os.path.join(subdir, f)
+            im = cv2.imread(file_path, 1)
+            im = cv2.cvtColor(im, cv2.IMREAD_GRAYSCALE)
+            im = imutils.rotate(im, rotation) if rotation > 0 else im
+            im = zoomin(im, scale) if scale > 1 else im
+            X.append(im)
+            y.append(i)
+
+    return np.array(X), np.array(y)
+

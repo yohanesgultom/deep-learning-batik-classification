@@ -14,6 +14,7 @@ import tables
 import argparse
 import imutils
 from random import sample
+from helper import resize, zoomin
 
 # config
 EXPECTED_MAX = 100.0
@@ -31,20 +32,6 @@ EXPECTED_CLASS = 5
 MAX_VALUE = 255
 MEDIAN_VALUE = MAX_VALUE / 2.0
 
-
-def resize(data, size):
-    return cv2.resize(data, (size, size))
-
-def zoomin(source, z):
-	if z < 1:
-		raise ValueError('z must be bigger than 1')
-	if z == 1:
-		return source
-
-	resized = imutils.resize(source, width=int(round(z * source.shape[1])))	
-	top_left = ((resized.shape[0] - source.shape[0]) / 2, (resized.shape[1] - source.shape[1]) / 2)
-	cropped = resized[top_left[0]:(top_left[0] + source.shape[0]), top_left[1]:(top_left[1] + source.shape[1])]
-	return cropped
 
 def normalize_and_filter(data, expected_max=EXPECTED_MAX, median=MEDIAN_VALUE, threshold=FILTER_THRESHOLD):
     data = (data - median) / median * expected_max
