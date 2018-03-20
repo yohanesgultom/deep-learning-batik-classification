@@ -13,7 +13,7 @@ from sklearn.neural_network import MLPClassifier
 
 
 # config
-classfiers = [
+classifiers = [
 	LogisticRegression(),
 	SVC(),    
 	MLPClassifier(),
@@ -58,7 +58,7 @@ if __name__ == '__main__':
 	best_classifier = None
 	best_score = 0.0
 	best_stdev = 0.0
-	for classifier in classfiers:
+	for classifier in classifiers:
 		# cross_validate
 		scores = cross_val_score(classifier, X, y, cv=n_folds)
 		mean = scores.mean()
@@ -66,7 +66,7 @@ if __name__ == '__main__':
 		print("{} CV accuracy: {:0.2f} (+/- {:0.2f})".format(type(classifier).__name__, mean, stdev))
 		# find the best
 		if (mean > best_score) or (mean == best_score and stdev < best_stdev):
-			best_classifier = classfier
+			best_classifier = classifier
 			best_score = mean
 			best_stdev = stdev
 	
