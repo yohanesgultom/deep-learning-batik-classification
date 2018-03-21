@@ -51,6 +51,7 @@ if __name__ == '__main__':
 	test_dir_path = args.test_dir_path
 	n_folds = args.n_folds
 	dictionary_size = args.dictionary_size
+	output_model = args.output_model
 
 	surf = cv2.xfeatures2d.SURF_create()
 
