@@ -2,6 +2,7 @@ import sys
 import tables
 import numpy as np
 import argparse
+import pickle
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import cross_val_score
 from sklearn.preprocessing import StandardScaler
