@@ -133,11 +133,12 @@ def zoomin(source, z):
 	return cropped
 
 
-def read_and_transform_dataset(dir_names, rotation=0, scale=1):
+def read_and_transform_dataset(dir_path, rotation=0, scale=1):
     X = [] # data
     y = [] # labels
 
     print('Reading images..')
+    dir_names = os.listdir(dir_path)
     for i in range(len(dir_names)):
         p = dir_names[i]
         subdir = os.path.join(dir_path, p)
