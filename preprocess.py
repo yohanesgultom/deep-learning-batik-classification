@@ -14,7 +14,7 @@ import tables
 import argparse
 import imutils
 from random import sample
-from helper import resize, zoomin
+from helper import normalize, resize, zoomin
 
 # config
 EXPECTED_MAX = 100.0
@@ -31,12 +31,6 @@ EXPECTED_DIM = (EXPECTED_SIZE, EXPECTED_SIZE, EXPECTED_CHANNELS)  # TensorFlow
 EXPECTED_CLASS = 5
 MAX_VALUE = 255
 MEDIAN_VALUE = MAX_VALUE / 2.0
-
-
-def normalize_and_filter(data, expected_max=EXPECTED_MAX, median=MEDIAN_VALUE, threshold=FILTER_THRESHOLD):
-    data = (data - median) / median * expected_max
-    # data[data < threshold] = EXPECTED_MIN
-    return data
 
 
 def append_data_and_label(m, c, dataset, labels):
@@ -100,7 +94,7 @@ if __name__ == '__main__':
                         # grayscale with 3 channels
                         img = cv2.cvtColor(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2RGB) if grayscale else img
                         # normalize and filter
-                        img = normalize_and_filter(img)
+                        img = normalize(img, EXPECTED_MAX, MEDIAN_VALUE)
                         # gather stat
                         stat[img.shape] = stat[img.shape] + 1 if img.shape in stat else 1
                         r = resize(img, EXPECTED_SIZE)

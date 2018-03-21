@@ -10,7 +10,6 @@ import os
 import sys
 import progressbar
 import imutils
-from preprocess import normalize_and_filter
 from sklearn.cluster import MiniBatchKMeans
 
 def get_dir_info(dir_path):
@@ -115,6 +114,11 @@ def zoomin(source, z):
 	return cropped
 
 
+def normalize(data, expected_max, median):
+    data = (data - median) / median * expected_max
+    return data
+
+
 def build_dataset_sklearn(dir_names, file_paths, file_dir_indexes, dictionary, xfeatures2d, rotation=0, scale=1):
 	assert len(file_paths) == len(file_dir_indexes)    
 	X = [] # data
@@ -142,6 +146,10 @@ def build_dataset_vgg16(dir_names, file_paths, file_dir_indexes, extractor, expe
 	X = [] # data
 	y = np.array(file_dir_indexes) # labels
 
+	EXPECTED_MAX = 100.0
+	MAX_VALUE = 255
+	MEDIAN_VALUE = MAX_VALUE / 2.0
+
 	print('VGG16 feature extraction..')
 	num_files = len(file_paths)
 	bar = progressbar.ProgressBar(maxval=num_files).start()
@@ -151,7 +159,7 @@ def build_dataset_vgg16(dir_names, file_paths, file_dir_indexes, extractor, expe
 		im = imutils.rotate(im, rotation) if rotation > 0 else im
 		im = zoomin(im, scale) if scale > 1 else im
 		im = cv2.cvtColor(cv2.cvtColor(im, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2RGB)
-		im = normalize_and_filter(im)
+		im = normalize(im, EXPECTED_MAX, MEDIAN_VALUE)
 		data = resize(im, expected_size)
 		X.append(data)
 		bar.update(i)
