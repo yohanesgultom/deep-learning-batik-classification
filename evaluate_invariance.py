@@ -34,7 +34,7 @@ if __name__ == '__main__':
 	results = []    
 
 	# get test data info
-	dir_names, file_paths, file_dir_indexes = get_dir_info(train_dir_path)
+	dir_names, file_paths, file_dir_indexes = get_dir_info(test_dir_path)
 
 	# evaluate vgg16 extractor
 	if vgg16_model is not None:
