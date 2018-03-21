@@ -2,6 +2,7 @@ import argparse
 import extractor as vgg16_extractor
 import pickle
 import numpy as np
+from preprocess import normalize_and_filter
 from helper import get_dir_info, build_dataset_vgg16, build_dataset_sklearn
 from sklearn.metrics import accuracy_score
 

@@ -141,17 +141,18 @@ def build_dataset_vgg16(dir_names, file_paths, file_dir_indexes, extractor, expe
 	X = [] # data
 	y = np.array(file_dir_indexes) # labels
 
-	print('Computing features using Bag-of-Words dictionary..')
+	print('VGG16 feature extraction..')
 	num_files = len(file_paths)
 	bar = progressbar.ProgressBar(maxval=num_files).start()
 	for i in range(num_files):
 		p = file_paths[i]
-		im = cv2.imread(p, 1)
-		im = cv2.cvtColor(im, cv2.IMREAD_GRAYSCALE)
+		im = cv2.imread(p)
 		im = imutils.rotate(im, rotation) if rotation > 0 else im
-		im = zoomin(im, scale) if scale > 1 else im            
-		vector = resize(im, expected_size)
-		X.append(vector)
+		im = zoomin(im, scale) if scale > 1 else im
+		im = cv2.cvtColor(cv2.cvtColor(im, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2RGB)
+		im = normalize_and_filter(im)
+		data = resize(im, expected_size)
+		X.append(data)
 		bar.update(i)
 	bar.finish()
 	X = extractor.predict(np.array(X))
