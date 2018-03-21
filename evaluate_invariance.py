@@ -36,7 +36,7 @@ if __name__ == '__main__':
         for v in values:
             # transform dataset
             if exp.lower() == 'rotate':
-                X, y = read_and_transform_dataset(test_dir_path, rotate=v)
+                X, y = read_and_transform_dataset(test_dir_path, rotation=v)
             elif exp.lower() == 'scale':
                 X, y = read_and_transform_dataset(test_dir_path, scale=1 + v / 100.0)
 
