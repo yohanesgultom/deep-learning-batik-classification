@@ -10,6 +10,7 @@ import os
 import sys
 import progressbar
 import imutils
+from preprocess import normalize_and_filter
 from sklearn.cluster import MiniBatchKMeans
 
 def get_dir_info(dir_path):
