@@ -65,6 +65,13 @@ GradientBoostingClassifier CV accuracy: 0.84 (+/- 0.07)
 RandomForestClassifier CV accuracy: 0.78 (+/- 0.05)
 
 
+INVARIANCE TEST
+SIFT + MLP rotate 90 0.9627659574468085
+SIFT + MLP rotate 180 0.973404255319149
+SIFT + MLP rotate 270 0.9574468085106383
+SIFT + MLP scale 10 0.9840425531914894
+SIFT + MLP scale 30 0.9361702127659575
+SIFT + MLP scale 50 0.898936170212766
 
 
 

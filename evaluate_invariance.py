@@ -50,7 +50,7 @@ if __name__ == '__main__':
 					X, y = build_dataset_vgg16(dir_names, file_paths, file_dir_indexes, extractor, expected_size=vgg16_extractor.EXPECTED_SIZE, scale=1 + v / 100.0)
 
 				accuracy = model.score(X, y)
-				results.append(('VGG16 + MLP', exp, v, accuracy))
+				results.append(("VGG16 " + type(model).__name__, exp, v, accuracy))
 
 
 	# evaluate sift extractor
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 					X, y = build_dataset_sklearn(dir_names, file_paths, file_dir_indexes, dictionary, sift, scale=1 + v / 100.0)
 
 				accuracy = model.score(X, y)
-				results.append(('SIFT + MLP', exp, v, accuracy))
+				results.append(("SIFT " + type(model).__name__, exp, v, accuracy))
 
 
 	# evaluate surf extractor
@@ -83,7 +83,7 @@ if __name__ == '__main__':
 					X, y = build_dataset_sklearn(dir_names, file_paths, file_dir_indexes, dictionary, surf, scale=1 + v / 100.0)
 
 				accuracy = model.score(X, y)
-				results.append(('SURF + MLP', exp, v, accuracy))
+				results.append(("SURF " + type(model).__name__, exp, v, accuracy))
 
 
 	print('\n\nResults:')
