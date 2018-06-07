@@ -86,11 +86,6 @@
 %
 %\usepackage{cite}
 \usepackage{cite}
-\usepackage[labelsep=period]{caption}
-\usepackage{balance}
-\usepackage{graphicx}
-\usepackage{multirow}
-\usepackage{booktabs}
 %\bibliographystyle{ieeetr}
 %\usepackage[sorting=none]{biblatex}
 %\bibliography{journals,phd-references}
@@ -136,6 +131,11 @@
   % \DeclareGraphicsExtensions{.eps}
   %\usepackage{subfigure}
 \fi
+\usepackage{balance}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{booktabs}
+
 % graphicx was written by David Carlisle and Sebastian Rahtz. It is
 % required if you want graphics, photos, etc. graphicx.sty is already
 % installed on most LaTeX systems. The latest version and documentation
@@ -227,11 +227,11 @@
 
 
 % *** SUBFIGURE PACKAGES ***
-%\ifCLASSOPTIONcompsoc
-%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
-%\else
-%  \usepackage[caption=false,font=footnotesize]{subfig}
-%\fi
+\ifCLASSOPTIONcompsoc
+  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\else
+  \usepackage[caption=false,font=footnotesize]{subfig}
+\fi
 % subfig.sty, written by Steven Douglas Cochran, is the modern replacement
 % for subfigure.sty, the latter of which is no longer maintained and is
 % incompatible with some LaTeX packages including fixltx2e. However,
@@ -253,7 +253,7 @@
 
 
 % *** FLOAT PACKAGES ***
-%
+
 %\usepackage{fixltx2e}
 % fixltx2e, the successor to the earlier fix2col.sty, was written by
 % Frank Mittelbach and David Carlisle. This package corrects a few problems
@@ -310,8 +310,6 @@
 % Basically, \url{my_url_here}.
 
 
-
-
 % *** Do not adjust lengths that control margins, column widths, etc. ***
 % *** Do not use packages that alter fonts (such as pslatex).         ***
 % There should be no need to do such things with IEEEtran.cls V1.6 and later.
@@ -335,10 +333,12 @@
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
+
 \author{\IEEEauthorblockN{Yohanes Gultom, Aniati Murni Arymurthy\\\\}
 	\IEEEauthorblockA{
 		\normalfont Faculty of Computer Science, Universitas Indonesia\\\\
-		\textit{Email:{yohanes.gultom@ui.ac.id}} 
+		\textit{yohanes.gultom@ui.ac.id} \\
+		\textit{aniati@cs.ui.ac.id}
 	} \\
 }
 
@@ -376,7 +376,7 @@
 	\begin{abstract}
 		\noindent
 		\normalfont 
-		Batik fabric is one of the most profound cultural heritage in Indonesia. Hence, continuous research on understanding it is necessary to preserve it. Despite of being one of the most common research task, Batik's pattern automatic classification still requires some improvement especially in regards to invariance dilemma. Convolutional neural network (ConvNet) is one of deep learning architecture which able to learn data representation by combining local receptive inputs, weight sharing and convolutions in order to solve invariance dilemma in image classification. Using dataset of 523 photos (5 classes), the experiments show that the proposed model, which used deep ConvNet VGG16 as feature extractor (transfer learning), achieved average of 0.69 $\pm$ 0.06 accuracy while the best SIFT and SURF-based models achieved 0.67 $\pm$ 0.14 and 0.68 $\pm$ 0.14 respectively. 
+		Batik fabric is one of the most profound cultural heritage in Indonesia. Hence, continuous research on understanding it is necessary to preserve it. Despite of being one of the most common research task, Batik's pattern automatic classification still requires some improvement especially in regards to invariance dilemma. Convolutional neural network (ConvNet) is one of deep learning architecture which able to learn data representation by combining local receptive inputs, weight sharing and convolutions in order to solve invariance dilemma in image classification. Using dataset of 2,092 Batik patches (5 classes), the experiments show that the proposed model, which used deep ConvNet VGG16 as feature extractor (transfer learning), achieves slightly better average of 89$\pm$7\% accuracy than SIFT and SURF-based that achieve 88$\pm$10\% and 88$\pm$8\% respectively. Despite of that, SIFT reaches around 5\% better accuracy in rotated and scaled dataset.
 		\\\\
 		\noindent
 		\textbf{Keywords}: \textit{Batik, classification, deep learning, transfer learning} \\\\
@@ -386,7 +386,7 @@
 	\begin{abstract}
 		\noindent
 		\normalfont 
-		Kain Batik adalah salah satu warisan kebudayaan Indonesia yang sangat berharga. Oleh karena itu, penelitian yang berkesinambungan perlu dilakukan untuk melestarikannya. Sekalipun telah menjadi topik penelitian yang umum, klasifikasi pola Batik secara otomatis masih memiliki beberapa tantangan yang perlu diselesaikan. Salah satu tantangan tersebut adalah masalah \textit{invariance dilemma}. \textit{Convolutional neural network} (ConvNet) adalah salah satu arsitektur \textit{deep learning} yang mampu mempelajari representasi data dengan mengkombinasikan teknik \textit{local receptive inputs}, \textit{weight sharing} dan \textit{convolutions} untuk mengatasi masalah \textit{invariance dilemma} pada klasifikasi citra seperti pola Batik. Eksperimen menggunakan \textit{dataset} 523 foto Batik (5 kelas) menunjukkan bahwa model yang menggunakan ConvNet VGG16 sebagai ekstraktor fitur mencapai rata-rata akurasi 0.69 $\pm$ 0.06 sedangkan model berbasis SIFT dan SURF mencapai rata-rata 0.67 $\pm$ 0.14 and 0.68 $\pm$ 0.14.
+		Kain Batik adalah salah satu warisan kebudayaan Indonesia yang sangat berharga. Oleh karena itu, penelitian yang berkesinambungan perlu dilakukan untuk melestarikannya. Sekalipun telah menjadi topik penelitian yang umum, klasifikasi pola Batik secara otomatis masih memiliki beberapa tantangan yang perlu diselesaikan. Salah satu tantangan tersebut adalah masalah \textit{invariance dilemma}. \textit{Convolutional neural network} (ConvNet) adalah salah satu arsitektur \textit{deep learning} yang mampu mempelajari representasi data dengan mengkombinasikan teknik \textit{local receptive inputs}, \textit{weight sharing} dan \textit{convolutions} untuk mengatasi masalah \textit{invariance dilemma} pada klasifikasi citra seperti pola Batik. Eksperimen menggunakan \textit{dataset} 2,092 potongan foto Batik (5 kelas) menunjukkan bahwa model yang menggunakan ConvNet VGG16 sebagai ekstraktor fitur mencapai rata-rata akurasi 89$\pm$7\% sedangkan model berbasis SIFT dan SURF mencapai rata-rata 88$\pm$10\% dan 88$\pm$8\%. Meskipun demikian, SIFT lebih akurat sekitar 5\% pada \textit{dataset} yang dirotasi dan diperbesar.
 		\\\\
 		\noindent
 		\textbf{Kata Kunci}: \textit{Batik, klasifikasi, deep learning, transfer learning} \\\\
@@ -411,15 +411,43 @@
 
 \section{Introduction}
 
-Batik fabric is one of the most profound cultural heritage in Indonesia. Hence, continuous research on understanding it is necessary to preserve it. One of the most popular research topic is batik classification.
+Batik fabric is one of the most profound cultural heritage in Indonesia. Hence, continuous research on understanding it is necessary to preserve it. One of the most popular research topic in computer science is batik classification. This topic can not be separated from another crucial subtopic: feature extraction. It is because in order to achieve high classification accuracy, a machine learning model requires numerical features extracted from Batik images.
 
-Since the most prominent feature of Batik is its uniquely recurring pattern (motifs), it's natural to consider it as a key to classification. To be more specific, recognition of Batik's motifs has been considered as one of the most successful technique in Batik classification especially using Scale-Invariant Feature Transform (SIFT) \cite{azhar2015batik} \cite{nurhaida2015automatic} and Speeded up robust features (SURF) \cite{willy2013evaluation}. Classifications using other features such as color and contrast are showing potentials but need to be researched further \cite{moertini2005algorithms}.
+\begin{figure}[!t]
+\centering
+\subfloat[Parang]{\includegraphics[width=1.0in]{../batik_parang}%
+\label{fig_batik_parang}}
+\hfil
+\subfloat[Kawung]{\includegraphics[width=1.0in]{../batik_kawung}%
+\label{fig_batik_kawung}}
+\hfil
+\subfloat[Ceplok]{\includegraphics[width=1.0in]{../batik_ceplok}%
+\label{fig_batik_ceplok}}
+\hfil
+\subfloat[Nitik]{\includegraphics[width=1.0in]{../batik_nitik}%
+\label{fig_batik_nitik}}
+\hfil
+\subfloat[Lereng]{\includegraphics[width=1.0in]{../batik_lereng}%
+\label{fig_batik_lereng}}
+\caption{General Batik pattern classification}
+\label{fig_batik_motifs}
+\end{figure}
 
-Deep learning based models have outperformed state-of-the-art methods in many domains including image classification and object recognition \cite{lecun2015deep}. One of the deep learning models, convolutional neural network (convnet) \cite{lecun1998gradient}, is currently considered as the state-of-the-art of image classification model as it was used as the base structure by ILSVRC-2014 top achievers \cite{simonyan2014very}. Therefore convnet may also be used to improve result on other image classification problems such as Batik classification.
+Since the most prominent feature of Batik is its uniquely recurring pattern (motif), earlier researches have focused on finding a method to extract features from it. Earlier researches have shown good result using several method such as Generalize Hough Transform \cite{sanabila2009recognition}, Gabor, GLCM and LBP \cite{fahmi2016feature}. The recent methods that are currently considered as state of the art are Scale-Invariant Feature Transform (SIFT) \cite{azhar2015batik} \cite{nurhaida2015automatic} and Speeded up robust features (SURF) \cite{willy2013evaluation}. Classifications using other features such as color and contrast are showing potentials but need to be researched further \cite{moertini2005algorithms}.
 
-In this paper, we propose a neural network Batik classification model that uses pre-trained deep convolutional network (VGG16) \cite{simonyan2014very} as a feature extractor. Features from a dataset of five general classes of Indonesian Batik (Parang, Lereng, Kawung, Ceplok and Nitik) are extracted using VGG16 and used to test various configuration of neural networks in order to find the best model. To test the capability of the model to solve invariance dilemma, some tests are also done on the rotated and zoomed version of the dataset. Finally, the proposed model is compared with SIFT and SURF based models using the same dataset.
+Deep learning based models have outperformed state-of-the-art methods in many domains including image classification and object recognition \cite{lecun2015deep}. One of the deep learning models, convolutional neural network (convnet) \cite{lecun1998gradient}, is currently considered as the state-of-the-art of image classification model as it was used as the base structure by ILSVRC-2014 top achievers \cite{simonyan2014very}. Therefore convnet has potential to improve result on other image classification problems such as Batik classification.
+
+In this paper, we propose a neural network Batik classification model that uses pre-trained deep convolutional network (VGG16) \cite{simonyan2014very} as a feature extractor. Features from a dataset of five general classes of Indonesian Batik (shown in Figure \ref{fig_batik_motifs}) are extracted using VGG16, SIFT and SURF then classified using several machine learning classifiers. In order to test the capability of the model to solve invariance dilemma, tests are also done with rotated and scaled (zoomed) images.
 
 \section{Related Works}
+
+Recent researches in Batik classification can be divided into two groups: (1) Researches on classification using handcrafted features and (2) researches on classification using automatically extracted features using deep learning.
+
+\subsection{Classification using Handcrafted Features}
+
+Since Batik classification has been researched for quite some time, current available methods are robust enough to noise addition, compression, and retouching of the input images. However most of them are still having difficulties with variance in transformations which involve either translation, rotation, scaling or combinations of them \cite{nurhaida2015automatic}. One of the initial work on Batik Classification was done using Generalized Hough Transform (GHT) to recognize Batik motifs as part of a content-based image retrieval (CBIR) \cite{sanabila2009recognition}. The research focused on detection of repetitive motifs in a batik image but not yet addressed various orientations and scale. 
+
+One of the most recent research address the performance of several feature extraction methods (Gabor filter, log-Gabor filter, Gray Level Co-occurrence Matrix, and Local Binary Pattern) on rotated and scaled primitive Batik motifs \cite{fahmi2016feature}. It shows that applying Principal Component Analysis (PCA) to reduce dimensionality can improve the classification 17\%. It also shows that applying Sequential Forward Floating Selection (SFFS) as feature selection makes the execution time 1,800 times faster.
 
 \begin{figure}[h]
 	\begin{center}
@@ -430,6 +458,9 @@ In this paper, we propose a neural network Batik classification model that uses 
 	\end{center}
 \end{figure}
 
+
+Improvements on Batik classification were motivated by the emergence of Scale-Invariant Feature Transform (SIFT)\cite{lowe2004distinctive} and Speeded up robust features (SURF)\cite{bay2006surf}. Both of these keypoint-based feature extraction methods are proposed to solve the transformation invariance dilemma. SIFT keypoint is a circular image region with an orientation which can be obtained by detecting extrema of Difference of Gaussian (DoG) pyramid \cite{lowe2004distinctive}. It's defined by four parameters: center coordinates x and y, scale and its orientation (an angle expressed in radians) as shown in Figure \ref{fig_keypoint}. An image, for example Batik image, may contains multiple keypoints as shown in Figure \ref{fig_keypoint}. In order to be efficiently and effectively used as a feature for classification, the keypoint need to be represented as SIFT descriptor. By definition it is a 3-dimensional spatial histogram of the image gradients characterizing a SIFT keypoint.
+
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=2.0in]{../batik-parang-keypoints}
@@ -439,28 +470,9 @@ In this paper, we propose a neural network Batik classification model that uses 
 	\end{center}
 \end{figure}
 
-Recent researches in Batik classification can be divided into two groups: (1) Researches on classification using handcrafted features (eg. SIFT and SURF), and (2) researches on classification using automatically extracted features using deep learning.
+Recent research proved that using SIFT descriptors to calculate similarity between Batik images can give 91.53\% accuracy \cite{nurhaida2015automatic}. Voting Hough Transform was also applied to the descriptors to eliminate mismatched keypoint candidates hence improving the accuracy. This research suggested that the original SIFT descriptor matching shouldn't be directly used to calculate similarity of Batik images due to many numbers of mismatched keypoints. This research uses fundamental templates of Batik patterns as a dataset instead of Batik photos. So it does not address issue related to noises which happen on non-processed images such as blur/unfocused, lightning issue, watermarks .etc.
 
-\subsection{Classification using Handcrafted Features}
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=3.0in]{../sift-bag-of-words}
-		\renewcommand{\figurename}{Fig.}	
-		\caption{SIFT for building bag of words visual vocabularies}
-		\label{fig_sift_bag_of_words}
-	\end{center}
-\end{figure}
-
-One of the initial work on Batik Classification was done using Generalized Hough Transform (GHT) 
-
-Since Batik classification has been researched for quite some time, current available methods are robust enough to noise addition, compression, and retouching of the input images. However most of them are still having difficulties with variance in transformations which involve either translation, rotation, scaling or combinations of them \cite{nurhaida2015automatic}. Recent improvements on Batik classification were motivated by the emergence of Scale-Invariant Feature Transform (SIFT)\cite{lowe2004distinctive} and Speeded up robust features (SURF)\cite{bay2006surf}. Both of these keypoint-based feature extraction methods are proposed to solve the transformation invariance dilemma.
-
-SIFT keypoint is a circular image region with an orientation which can be obtained by detecting extrema of Difference of Gaussian (DoG) pyramid \cite{lowe2004distinctive}. It's defined by four parameters: center coordinates x and y, scale and its orientation (an angle expressed in radians) as shown in Figure \ref{fig_keypoint}. An image, for example Batik image, may contains multiple keypoints as shown in Figure \ref{fig_keypoint}. In order to be efficiently and effectively used as a feature for classification, the keypoint need to be represented as SIFT descriptor. By definition it is a 3-dimensional spatial histogram of the image gradients characterizing a SIFT keypoint.
-
-Recent research \cite{nurhaida2015automatic} proved that using SIFT descriptors to calculate similarity between Batik images can give 91.53\% accuracy. Voting Hough Transform was applied to the descriptors to eliminate mismatched keypoint candidates. This research suggested that the original SIFT descriptor matching shouldn't be directly used to calculate similarity of Batik images due to many numbers of mismatched keypoints.
-
-Another research \cite{azhar2015batik} proposed a classification method using support vector machine (SVM) fed by bag of words (BOF) features extracted using SIFT descriptors. In this research, SIFT descriptors also weren't used directly as features for SVM but were clustered using k-means vector quantization algorithm to build vocabularies. These visual vocabularies then used to describe each images and fed to SVM classifier. The experiment results showed very good average accuracy of 97.67\% for normal images, 95.47\% for rotated images and 79\% for scaled images. Besides that SIFT and bag of words made a good feature extractor, this research also concluded that further works need to handle scaled Batik image cases.
+Another research \cite{azhar2015batik} proposed a classification method using support vector machine (SVM) fed by bag of words (BoW) features extracted using SIFT descriptors. In this research, SIFT descriptors also weren't used directly as features for SVM but were clustered using k-means vector quantization algorithm to build vocabularies. These visual vocabularies then used to describe each images and fed to SVM classifier. This approach is required because SIFT descriptors have high dimensionality and vary between each images. The experiment results showed high average accuracy of 97.67\% for normal images, 95.47\% for rotated images and 79\% for scaled images. Besides that SIFT and bag of words made a good feature extractor, this research also concluded that further works need to handle scaled Batik image cases. 
 
 An earlier research \cite{willy2013evaluation} proved that SURF can extract transformation invariant features faster than SIFT for classification of Songket, another Indonesian traditional fabric with motifs just like Batik. Unlike the others, this research used SIFT and SURF features directly to compute the matching scores between Songket images. The scores are calculated by (1) the number of matched keypoints and (2) the average total distance of the n-nearest keypoints. The result of experiments showed that the matching accuracy with SIFT features was 92-100\% and 65-97\% with SURF. With SURF features, the accuracy dropped quite significant if salt and pepper noises were added while SIFT was more stable. Apparently, this one wasn't paying much attention to transformation variance as it didn't apply transformation noise as in other research\cite{azhar2015batik}.
 
@@ -473,9 +485,11 @@ Although not yet many, the advent of deep learning also motivated a research on 
 
 \section{Methodology}
 
-We propose a deep convolutional neural network composed by a pre-trained VGG16 (without its top layer) as automatic feature extractor and a fully-connected tangent hiperbolic (tanh) feed-forward neural network as classifier. The method of using pre-trained deep network as part of another neural network to solve different (but related) task can be considered as transfer learning or self-taught learning \cite{raina2007self}.
+We propose a deep convolutional neural network composed by a pre-trained VGG16 (without its top layer) as automatic feature extractor and a multi-layer perceptron (MLP) as classifier. The method of using pre-trained deep network as part of another neural network to solve different (but related) task can be considered as transfer learning or self-taught learning \cite{raina2007self}.
 
 \subsection{Convolutional Neural Network}
+
+Convolutional network is a special kind of neural network optimized to learn representation of an image \cite{lecun2015deep}. It introduces 2 new types of hidden layers: convolutional and subsampling/pooling layers. Each layer in convnet connects neurons (pixels) from their input layer in form of local receptives (square patches) through a shared weights to a feature map \cite{lecun1998gradient}. On top of a set of convolutional and pooling layers, some fully-connected layers are added as classifier as described by Figure \ref{fig_lenet5_convnet}.
 
 \begin{figure}[h]
 	\begin{center}
@@ -486,13 +500,12 @@ We propose a deep convolutional neural network composed by a pre-trained VGG16 (
 	\end{center}
 \end{figure}
 
-Convolutional network is a special kind of neural network optimized to learn representation of an image \cite{lecun2015deep}. It introduces 2 new types of hidden layers: convolutional and subsampling/pooling layers. Each layer in convnet connects neurons (pixels) from their input layer in form of local receptives (square patches) through a shared weights to a feature map \cite{lecun1998gradient}. On top of a set of convolutional and pooling layers, some fully-connected layers are added as classifier as described by Figure \ref{fig_lenet5_convnet}.
 
-Our proposed model uses 5 set of convolutional and pooling layers using rectified unit (ReLu) activation function following example of VGG16 as shown in Figure \ref{fig_vgg16}. The differences are our model uses 2 fully-connected hyperbolic tangent (tanh) (Equation \ref{eq_tanh}) activated layers as classifier (instead of ReLu) and a SoftMax (Equation \ref{eq_softmax}) layer as an output. We also uses Dropout regularization after each tanh fully-connected layers to avoid overfitting by randomly drop/turn off (set value to zero) hidden nodes (Equation \ref{eq_dropout}) \cite{srivastava2014dropout}. The whole architecture is shown in Figure \ref{fig_proposed_method}.
+VGG16 is a very deep convnet model made by Visual Geometry Group (VGG), University of Oxford \cite{simonyan2014very}. It was trained on 1,000,000 images dataset from ImageNet and achieve state-of-the-art results on Large-Scale Visual Recognition Challenge (ILSVRC) 2014. It contains 16 hidden layers composed of convolutional layers, max pooling layers and fully-connected layers as shown in Figure \ref{fig_vgg16}. The convolution and fully-connected layers uses ReLu activation function (Equation \ref{eq_relu}), except the output layer that uses a SoftMax activation function (Equation \ref{eq_softmax}) to estimate probability of multiple classes/labels. Dropout is also used as regularization after each tanh fully-connected layers to avoid overfitting by randomly drop/turn off (set value to zero) hidden nodes (Equation \ref{eq_dropout}) \cite{srivastava2014dropout}.
 
 \begin{equation}
-y_{i}={\frac {2}{1+e^{-2x _{i}}}}-1
-\label{eq_tanh}
+y_{i}=\log(1+\exp x _{i})
+\label{eq_relu}
 \end{equation}
 
 \begin{equation}
@@ -516,24 +529,15 @@ r_{j}^{x} \sim Bernoulli(p), \nonumber \\
 	\end{center}
 \end{figure}
 
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=3.0in]{../proposed_method}
-		\renewcommand{\figurename}{Fig.}		
-		\caption{Proposed method composed of pre-trained VGG16 as extractor and fully-connected TanH and Softmax as classifier}
-		\label{fig_proposed_method}
-	\end{center}
-\end{figure}
-
 \subsection{Transfer Learning}
 
 Deep neural networks usually requires a lot of training data in order to learn the representation of the data. In case there is not enough training data, there are several techniques to help neural networks model learns data representation using small training data. One of the technique is transferring knowledge of other pre-trained neural network model to our model. This technique is known as transfer learning or self-taught learning \cite{raina2007self}.
 
-Our proposed model uses transferred knowledge (layer weights) from pre-trained VGG16 model provided by deep learning framework Keras \footnote{\url{https://keras.io/applications/#vgg16}} which was pre-trained using 1,000,000 images dataset from ImageNet. We use VGG16 bottom layers weights (excluding the fully-connected layers) to initialize our model weights and train the classifier part only. This method allows us to shorten the time needed to train our model. Moreover, training the model using GPU improve the speed even more.
+Our proposed model uses transferred knowledge (layer weights) from pre-trained VGG16 model (provided by deep learning framework Keras\footnote{\url{https://keras.io/applications/#vgg16}}) which was pre-trained using 1,000,000 images dataset from ImageNet. Intermediate outputs of VGG16 can be used to extract generic features for any image classifier \cite{fischer2014descriptor}. Therefore, even though VGG16 was not designed to classify Batik patterns, it should be able to extract useful generic features from Batik images which can be used further for classification. 
 
-To improve comprehension and reproducibility, we  publish our model Python code in public online code repository
-\footnote{\url{https://github.com/yohanesgultom/deep-learning-batik-classification}}. 
-We also use opensource Theano-backed Keras as deep learning framework and Scikit-Learn\footnote{\url{http://scikit-learn.org/}} as model evaluation framework to improve reusability.
+Compared to SIFT/SURF BoW, using pre-trained VGG16 allows us to reduce time needed to extract features because no training required for the feature extractor. Moreover, since our proposed model is based on neural network, execution time may also be reduced significantly by utilizing GPU parallelization.
+
+To improve comprehension and reproducibility, the proposed model and experiment codes are also available in public online code repository\footnote{\url{https://github.com/yohanesgultom/deep-learning-batik-classification}}. This research also utilizes opensource TensorFlow-backed Keras as deep learning framework and scikit-learn\footnote{\url{http://scikit-learn.org/}} library for classification and evaluation to reduce amount of codes written so they can be easily studied further.
 
 \section{Experiments and Results}
 
@@ -541,104 +545,156 @@ In order to measure the performance of our model, we trained our model and compa
 
 \subsection{Experiments}
 
-The dataset was used in this research is a Batik dataset compiled by Machine Learning and Computer Vision (MLCV) Lab, Faculty of Computer Science, University of Indonesia. This dataset consists of 603 Batik photos ($\pm$ 78.3 MB) gathered from various sources thus having different size, quality and view angle.
+The dataset used in the experiments originally comes from Machine Learning and Computer Vision (MLCV) Lab, Faculty of Computer Science, University of Indonesia. The original dataset consists of 603 Batik photos ($\pm$ 78.3 MB) gathered from various sources thus having different size, quality and view angle. But based on the previous research, this dataset is expanded by equally slicing each images to four patches (Figure \ref{fig_dateset}) for better accuracy \cite{menzata2014sistem}. Hence, the dataset used in the experiments contains 2,092 images (patches) of five classes:
 
-We also tried to tune the dataset by deleting some duplicated (similar photos under a class) and conflicting photos (same photos exist under different classes). The tuned dataset has 523 photos left ($\pm$ 68.7 MB) and considered as separate dataset in this experiment.
+\begin{enumerate}
+\item Ceplok: 504 images
+\item Kawung: 368 images
+\item Lereng: 220 images
+\item Nitik: 428 images
+\item Parang: 572 images
+\end{enumerate}
 
-All classifiers in this experiment were trained using 553 Batik photos (around 52-169 per class) and tested using 50 photos (10 classes per class) from regular dataset (9:1 ratio). The classifiers were also trained using 476 photos and tested with 47 photos from tuned dataset in order to observe the difference.
 
-Our neural network classifier was trained for 50 epoch using Cross Entropy function to calculate loss (Equation \ref{eq_cross_entropy_loss}) and optimized using Stochastic Gradient Descent (SGD) (Equation \ref{eq_sgd}) to update weights.
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=3.0in]{../dataset}
+		\renewcommand{\figurename}{Fig.}
+		\caption{Example of generation of Batik patches}
+		\label{fig_dateset}
+	\end{center}
+\end{figure}
 
-\begin{equation}
-V(f(\vec{x}),t) = -t\ln(f(\vec{x}))-(1-t)\ln(1-f(\vec{x}))
-\label{eq_cross_entropy_loss}
-\end{equation}
 
-\begin{equation}
-w:=w-\eta \nabla Q_{i}(w)+\alpha \Delta w
-\label{eq_sgd}
-\end{equation}
+In the first experiment, the objectives are to compare our performance of SIFT, SURF and VGG16 extractors on the dataset by using the result to train and test six different classifiers: Logistic Regression, Support Vector Machine (RBF Kernel), Multi-Layer Perceptron (1 ReLU hidden layer, 100 nodes), Decision Tree, Gradient Boosting and Random Forest. The dataset is minimally preprocessed by converting each images to grayscale before processed by three extractors:
 
-The SIFT and SURF models were trained in similar manner using similar methods described in related research \cite{azhar2015batik} and also illustrated in Figure \ref{fig_sift_bag_of_words}:
+\begin{enumerate}
+\item SIFT Bag of Words (BoW): extracts 2,800 features
+\item SURF Bag of Words (BoW): extracts 2,800 features
+\item VGG16: extracts 512 features
+\end{enumerate}
+
+%Our neural network classifier was trained for 50 epoch using Cross Entropy function to calculate loss (Equation \ref{eq_cross_entropy_loss}) and optimized using Stochastic Gradient Descent (SGD) (Equation \ref{eq_sgd}) to update weights.
+%
+%\begin{equation}
+%V(f(\vec{x}),t) = -t\ln(f(\vec{x}))-(1-t)\ln(1-f(\vec{x}))
+%\label{eq_cross_entropy_loss}
+%\end{equation}
+%
+%\begin{equation}
+%w:=w-\eta \nabla Q_{i}(w)+\alpha \Delta w
+%\label{eq_sgd}
+%\end{equation}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=3.0in]{../sift-bag-of-words}
+		\renewcommand{\figurename}{Fig.}	
+		\caption{SIFT for building bag of words visual vocabularies}
+		\label{fig_sift_bag_of_words}
+	\end{center}
+\end{figure}
+
+While, VGG16 extractor does not require any training because pre-trained model (weights) are used, the SIFT and SURF features extractors are trained using the best methods (achieving highest accuracy) described in previous research \cite{azhar2015batik} (illustrated in Figure \ref{fig_sift_bag_of_words}):
 
 \begin{enumerate}
 	\item Image descriptors were extracted according to their feature extractor (SIFT or SURF)
-	\item Descriptors were clustered to 5 clusters using K-Means to get visual vocabularies for Bag of Words (BoW)
-	\item Those 5 visual vocabularies then used to compute BoW features from SIFT/SURF image descriptors
-	\item Finally a multi-class SVM classifier were trained using the BoW features
+	\item Descriptors were clustered to 2,800 clusters using K-Means to get visual vocabularies for Bag of Words (BoW)
+	\item Those 2,800 visual vocabularies then used to compute BoW features from SIFT/SURF image descriptors to produce 2,800 features
+\end{enumerate} 
+
+In the first experiment, each extracted features are used to train and test six different classifiers mentioned above using 10 folds cross validation. So effectively, each classifiers are trained using 1,883 images and tested using 209 images 10 times. The results are averaged and then compared to see which combination of extractor and classifier performs the best.
+
+The best combinations of each three extractors from first experiment are tested for their capability to handle invariance dillema in the second experiment. The steps of experiments are below:
+
+\begin{enumerate}
+	\item Each combinations of the best extractors-classifiers are trained using 2,092 images (without any transformation)
+	\item A subset of 193 images are randomly chosen from dataset and transformed to six test dataset by applying six transformations: 
+	\begin{enumerate}
+		\item 90$^{\circ}$ rotation
+		\item 180$^{\circ}$ rotation
+		\item 270$^{\circ}$ rotation
+		\item 10\% zoom-in (1.1 scale)
+		\item 30\% zoom-in (1.3 scale)
+		\item 50\% zoom-in (1.5 scale)										
+	\end{enumerate}
+	\item Each combinations of the best extractors-classifiers are tested against those six transformed test dataset
 \end{enumerate}
 
-All experiments were conducted using Intel Core i7-5960X CPU, 66 GB RAM, NVIDIA GTX 980 4GB GPU, 240GB SSD, Debian 8 OS. The proposed model ran on GPU while SIFT/SURF SVM models ran on CPU.
+All experiments were conducted using Intel Core i7-5960X CPU, 66 GB RAM, NVIDIA GTX 980 4GB GPU, 240GB SSD, Debian 8 OS. The VGG16 extractor runs on GPU to reduce the execution time but the result should not be different than running it on CPU. 
 
-\subsection{Results}
+\subsection{Results and Analysis}
 
-As shown in Figure \ref{fig_accuracy_comparison}, the proposed model outperformed SIFT and SURF based classifier by 24\% and 34\% respectively when using regular dataset. Moreover by using tuned dataset, our model outperformed other models by larger margin 34\% and 49\%.
+In the first experiment, the proposed model (VGG16 MLP), achieved slightly better (1\%) accuracy and less deviation than the best SIFT and SURF models (SIFT LogReg and SURF MLP) as shown by chart in Figure \ref{fig_accuracy_comparison}. The average accuracy achieved by the proposed model is also $\pm$8\% better than Stacked-Autoencoder \cite{menzata2014sistem} that used dataset from same origin.
 
-\begin{figure*}[h]
+On general, the result also shows that VGG16 extractor performs as well as SIFT and SURF extractors despite of fewer features dimension (512 features against 2,800 features). Since VGG16 extractor doesn't require training, it is more efficient than SIFT/SURF BoW extractor. On top of that, neural network models such as VGG16 are known to run parallelly in GPU \cite{krizhevsky2012imagenet} to make it event more efficient. 
+
+It is also shown that decision-tree-based classifiers (Decision Tree, Random Forest and Gradient Boosting) generally achieve lower accuracy compared to non-decision-tree classifiers. Only SIFT Gradient Boosting and VGG Gradient Boosting which outperform SVM classifiers. This shows that the extracted features don't have nominal scale which is usually suitable with decision-tree-based classifiers. Meanwhile, SVM, which represents non-linear classifier, is outperformed by logistic regression and single layer ReLU MLP that represent linear classifier. This result shows that the features extracted by SIFT, SURF and VGG16 are not linearly separable.
+
+In the second experiment, the proposed model (VGG16 MLP) shows slightly less accurate results compared to SIFT and SURF models. For rotated and zoomed-in datasets, SIFT model is $\pm$5\% better than VGG16 model. While SURF model is $\pm$5\% better than VGG16 only on rotated datasets but $\pm$3\% worse than it. Despite of that, the accuracies of the proposed model are generally high (above 80\%) and much better than self-trained Stacked-Autoencoder from previous research \cite{menzata2014sistem}. This shows that pre-trained VGG16 is able to handle invariance dilemma in Batik images almost as good as SIFT and SURF extractor.
+
+\begin{figure}[t]
 	\begin{center}
-		\includegraphics[width=\textwidth]{../chart_accuracy_rev}
+		\includegraphics[width=3.5in]{../chart_accuracy_rev}
 		\renewcommand{\figurename}{Fig.}
 		\caption{Models accuracy comparison}
 		\label{fig_accuracy_comparison}
 	\end{center}
-\end{figure*}
+\end{figure}
 
-\begin{table*}
+\begin{table}[t]
 	\begin{center}
-		\caption{Performance comparison of fully-connected layers configurations}
-		\label{tab_experiment_results}	
+		\caption{Models accuracy comparison on rotated test data}
+		\label{tab_experiment_rotated}	
 		\begin{tabular}{lllll}
 		    \toprule
-			\multirow{2}{*}[-3pt]{Hidden Layer(s)}  & \multicolumn{4}{c}{Number of Epochs} \\ 
-		    \cmidrule{2-5} 
-		  & 50 & 100 & 200 & 300 \\ 
-		     \midrule
-2 Sigmoid & 0.62 $\pm$ 0.11 & 0.68 $\pm$ 0.1 & 0.68 $\pm$ 0.08 & 0.68 $\pm$ 0.12 \\
-2 ReLU & 0.67 $\pm$ 0.13 & 0.67 $\pm$ 0.07 & 0.69 $\pm$ 0.1 & 0.67 $\pm$ 0.12 \\
-2 TanH & 0.67 $\pm$ 0.11 & \textbf{0.69 $\pm$ 0.06} & 0.67 $\pm$ 0.11 & 0.68 $\pm$ 0.11 \\
-2 ReLU + TanH & 0.68 $\pm$ 0.1 & 0.68 $\pm$ 0.08 & 0.69 $\pm$ 0.08 & 0.67 $\pm$ 0.08 \\
-1 Sigmoid & 0.67 $\pm$ 0.07 & 0.69 $\pm$ 0.13 & 0.67 $\pm$ 0.08 & 0.68 $\pm$ 0.13 \\
-1 ReLU  & 0.67 $\pm$ 0.07 & 0.63 $\pm$ 0.05 & 0.65 $\pm$ 0.07 & 0.56 $\pm$ 0.19 \\
-1 TanH & 0.69 $\pm$ 0.07 & 0.67 $\pm$ 0.11 & 0.66 $\pm$ 0.11 & 0.66 $\pm$ 0.08 \\
-		    \bottomrule
-		\end{tabular}
-	\end{center}
-\end{table*} 
-
-\begin{table*}
-	\begin{center}
-		\caption{Tests on zoomed and rotated Batik images}
-		\label{tab_experiment_results_2}	
-		\begin{tabular}{llllll}
-		    \toprule
-			\multirow{2}{*}[-3pt]{Transformation}  & \multicolumn{4}{c}{Experiment No} & \multirow{2}{*}[-3pt]{Average} \\ 
+			\multirow{2}{*}[-3pt]{Model}  & \multicolumn{3}{c}{Accuracy on Rotation} & \multirow{2}{*}[-3pt]{Average} \\ 
 		    \cmidrule{2-4} 
-		  & 1 & 2 & 3 & \\ 
+		  & 90$^{\circ}$ & 180$^{\circ}$ & 270$^{\circ}$ & \\ 
 		     \midrule
-Zoom in 10\% & 0.76 & 0.68 & 0.74 & \textbf{0.73} \\
-Zoom in 30\% & 0.68 & 0.72 & 0.72 & \textbf{0.71} \\
-Zoom in 50\% & 0.72 & 0.7 & 0.62 & \textbf{0.68} \\
-Rotate 90$^{\circ}$ & 0.55 & 0.47 & 0.55 & \textbf{0.52} \\
-Rotate 180$^{\circ}$ & 0.64 & 0.62 & 0.63 & \textbf{0.63} \\
-Rotate 270$^{\circ}$ & 0.46 & 0.49 & 0.45 & \textbf{0.47} \\
+\textbf{SIFT LogReg} & 96.28 & 97.34 & 95.74 & \textbf{96.45} \\
+SURF MLP & 96.81 & 96.81 & 96.28 & 96.63 \\
+VGG16 MLP & 88.30 & 96.28 & 90.96 & 91.84 \\
 		    \bottomrule
 		\end{tabular}
 	\end{center}
-\end{table*} 
+\end{table} 
 
+\begin{table}[t]
+	\begin{center}
+		\caption{Models accuracy comparison on scaled test data}
+		\label{tab_experiment_scaled}	
+		\begin{tabular}{lllll}
+		    \toprule
+			\multirow{2}{*}[-3pt]{Model}  & \multicolumn{3}{c}{Accuracy on Zoom In} & \multirow{2}{*}[-3pt]{Average} \\ 
+		    \cmidrule{2-4} 
+		  & 10\% & 30\% & 50\% & \\ 
+		     \midrule
+\textbf{SIFT LogReg} & 98.40 & 93.62 & 89.89 & \textbf{93.97} \\
+SURF MLP & 93.62 & 87.23 & 79.79 & 86.88 \\
+VGG16 MLP & 96.28 & 88.83 & 81.91 & 89.01 \\
+		    \bottomrule
+		\end{tabular}
+	\end{center}
+\end{table} 
 
 \section{Conclusion and Future Works}
 
-As shown by the experiments, our model, which is based on deep convolutional network, outperformed SIFT and SURF based models in term of accuracy as well as processing time. This confirms that automatic feature extraction using pre-trained convolutional are able to handle transformation invariant features such as Batik motifs better than SIFT and SURF as also concluded by related research \cite{fischer2014descriptor}.
-
-Moreover, deep neural networks is more scalable as its training computation is composed of matrix multiplication which can be easily parallelized on GPU. Supported by keep-growing GPU hardwares, deep neural networks can always be improved in term of speed and capacity.
-
-We also found out that current Batik dataset has a lot of room for improvements:
+Based on the experiment results and analysis, there are several points can be concluded:
 
 \begin{enumerate}
-	\item Multi-labeled data. As majority of the data are mixed-motif Batik, the dataset must provide more than one labels for each applicable sample.
-	\item Clearly distinguished samples between classes. For instance, Parang and Lereng motifs data often overlaps each other. This condition often confuses classifier during training and causes less accurate generalization.
-	\item Homogeneous quality of data. Due to the various sources of data, the quality (resolution, size, view angle) of the data are also various. Removing low quality data and preprocessing high quality ones may produce homogeneous data and improve classifier training process.
+	\item Pre-trained VGG16 extractor with MLP classifier slightly outperformed SIFT and SURF based models in term of accuracy for non-transformed dataset. Despite of not performing as good as SIFT and SURF models on transformed datasets, it still achieves relatively high accuracy. This confirms that automatic feature extraction using pre-trained convolutional are able to handle transformation invariant features such as Batik motifs as good as SIFT and SURF as also concluded by related research \cite{fischer2014descriptor}.
+	\item Pre-trained VGG16 extractor is more efficient than SIFT and SURF bag of words (BoW) because it doesn't require any form of data fitting or training with Batik dataset. Meanwhile, SIFT/SURF requires clustering of Batik SIFT/SURF descriptors in order to build visual vocabularies. On top of that, VGG16 extractor can be run parallely on GPU to further reduce execution time.
+	\item Features extracted by VGG16, SIFT and SURF don't scale like nominal data and are linearly separable. Hence, decision-tree-based (Decision Tree, Gradient Boosting and Random Forest) and non-linear classifiers perform less accurate compared to linear classifiers (Logistic Regression and single hidden layer MLP).
+\end{enumerate}
+
+There are also some aspects that can be explored to improve the research further:
+
+\begin{enumerate}
+	\item VGG16 is not the only pre-trained deep learning model available. So further research needs to compare performance of other pre-trained models such as VGG19\cite{simonyan2014very}, Xception\cite{chollet2016xception}, ResNet50\cite{he2016deep} .etc on Batik datasets.
+	\item As majority of the data are mixed-motif Batik, each images should be classified to multiple classes at the same time (eg. Parang and Kawung). So current dataset should be relabeled to show the multi-label information of each Batik images.
+	\item Certain images in dataset often overlap each other (eg. Parang and Lereng motifs). This condition often confuses classifier during training and causes less accurate generalization. Therefore better (stricter) data labeling may further increase the accuracy of classification models.
+	\item Due to the various sources of data, the quality (resolution, noise, watermarks .etc) of the data are also various. Removing low quality data and preprocessing high quality ones may produce homogeneous data and improve classifier accuracy.
 \end{enumerate}
 
 

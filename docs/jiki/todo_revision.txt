@@ -1,5 +1,52 @@
 1. Why do the author using VGG16 model for batik recognition? However, the number of class in VGG16 is larger than in batik motif class. 
 
+	Explanation added in 2nd paragraph of section 3.2 Transfer Learning
+
+2. Moreover, the author should put some ground why using bag of word feature.
+
+	Explanation added in 5th paragraph of section 2.1 Classification Using Handcrafted Features
+
+3. Moreover, some of the figure in the manuscript using somebody else works, thus the author need to "paraphrase" the figure using your own image. 
+	
+	All copied images are replaced with "paraphrased" images
+
+4. Moreover, the author using CPU for SVM and GPU for deep learning. It cant be compared because it is not comparable (not apple to apple).
+
+	Experiment has been removed.
+
+5. The authors are recommended to add the initial and And the latest reference of batik researach to enrich the reference.
+
+	Added on 1st and 2nd paragraphs of section 2.1 Classification Using Handcrafted Features
+
+6. Was the dataset used in this paper same as dataset used in the previous research by Nurhaida et al [2]? In the previous research by Nurhaida [2], the accuracy of the classification reached 91%.  Please compare proposed method to previous method by Nurhaida et al.
+
+	Explanation added in 4th paragraph of section 2.1 Classification Using Handcrafted Features
+
+7. Previous research proposed by Azhar et al [1] tried to solve batik classification. It is reported that the proposed method by Azhar et al reached very good accuracy (more than 97%). Furthermore, Azhar et al used dataset with more classes (50 classes) compared to the authors dataset. But, the method proposed by Azhar et al performed low accuracy here. Please explain in detail why it happened. Please elaborate your analysis especially why the existing methods did not perform well here even tough in previous research they reached good accuracy
+
+	It was a mistake and has been fixed (experiments are redone). Previously, the first experiment used only 5 clusters to build vocabularies while actually 2,800 clusters are used in the previous research by Azhar et al [1].
+
+8. Please avoid redundant contents e.g. table and fig. 8-9
+
+	Removed
+
+9. If it is possible, please compare with other classifier e.g. multilayer perceptron, tree, random forest, boosting (for SIFT and SURF feature).
+	
+	Done in the first experiment (Figure 8)
+
+
+10. Just please elaborate your writing to be more comprehensive because I think the explanation for each section is too short.
+	
+	Done on each sections.
+
+
+
+
+
+===========
+
+1. Why do the author using VGG16 model for batik recognition? However, the number of class in VGG16 is larger than in batik motif class. 
+
 VGG16 was designed to extract generic features of 1,000 classes and to classify them. As suggested by (Fischer, 2014), we can use VGG16 partially (some of the layers) to take advantage of its ability to extract generic features and use it with another image classifier. Even if VGG16 was not designed to classify Batik patterns, we should be able to use it to extract generic features from the patterns and to train a specific classifier using the features. 
 
 2. Moreover, the author should put some ground why using bag of word feature.
@@ -10,15 +57,15 @@ clustering method in feature extraction.
 
 3. Moreover, some of the figure in the manuscript using somebody else works, thus the author need to "paraphrase" the figure using your own image. 
 
-In progress
+Done
 
 4. Moreover, the author using CPU for SVM and GPU for deep learning. It cant be compared because it is not comparable (not apple to apple).
 
-OK
+OK. Removed
 
 5. The authors are recommended to add the initial(http://www.academia.edu/2876095/Recognition_of_Batik_Motifs_using_the_Generalized_Hough_Transform) and And the latest (https://dl.acm.org/citation.cfm?id=3033327) reference of batik researach to enrich the reference.
 
-In progress
+OK
 
 6. Was the dataset used in this paper same as dataset used in the previous research by Nurhaida et al [2]? In the previous research by Nurhaida [2], the accuracy of the classification reached 91%.  Please compare proposed method to previous method by Nurhaida et al.
 
@@ -38,89 +85,5 @@ OK
 
 10. Just please elaborate your writing to be more comprehensive because I think the explanation for each section is too short. 
 
-In progress
-
-SLICES SIFT dictionary_size = 2800, data = 2092, cv = 10
-LogisticRegression CV accuracy: 0.88 (+/- 0.10)
-SVC CV accuracy: 0.82 (+/- 0.09)
-MLPClassifier CV accuracy: 0.88 (+/- 0.10)
-DecisionTreeClassifier CV accuracy: 0.65 (+/- 0.10)
-GradientBoostingClassifier CV accuracy: 0.82 (+/- 0.08)
-RandomForestClassifier CV accuracy: 0.74 (+/- 0.08)
-
-SLICES SURF dictionary_size = 2800, data = 2092, cv = 10
-LogisticRegression CV accuracy: 0.88 (+/- 0.08)
-SVC CV accuracy: 0.86 (+/- 0.13)
-MLPClassifier CV accuracy: 0.88 (+/- 0.08)
-DecisionTreeClassifier CV accuracy: 0.62 (+/- 0.05)
-GradientBoostingClassifier CV accuracy: 0.80 (+/- 0.07)
-RandomForestClassifier CV accuracy: 0.71 (+/- 0.06)
-
-SLICES VGG16 AVG POOL GRAY cv = 10, data = 2092
-LogisticRegression CV accuracy: 0.87 (+/- 0.08)
-SVC CV accuracy: 0.81 (+/- 0.19)
-MLPClassifier CV accuracy: 0.89 (+/- 0.07)
-DecisionTreeClassifier CV accuracy: 0.70 (+/- 0.11)
-GradientBoostingClassifier CV accuracy: 0.84 (+/- 0.07)
-RandomForestClassifier CV accuracy: 0.78 (+/- 0.05)
-
-
-INVARIANCE TEST
-SIFT + MLP rotate 90 0.9627659574468085
-SIFT + MLP rotate 180 0.973404255319149
-SIFT + MLP rotate 270 0.9574468085106383
-SIFT + MLP scale 10 0.9840425531914894
-SIFT + MLP scale 30 0.9361702127659575
-SIFT + MLP scale 50 0.898936170212766
-
-
-
-
-==============
-
-SLICES SIFT dictionary_size = 2800, data = 2092, cv = 7
-LogisticRegression CV accuracy: 0.89 (+/- 0.10)
-SVC CV accuracy: 0.85 (+/- 0.12)
-MLPClassifier CV accuracy: 0.88 (+/- 0.08)
-DecisionTreeClassifier CV accuracy: 0.63 (+/- 0.05)
-GradientBoostingClassifier CV accuracy: 0.82 (+/- 0.06)
-RandomForestClassifier CV accuracy: 0.72 (+/- 0.08)
-
-
-SLICES SURF dictionary_size = 2800, data = 2092, cv = 7
-LogisticRegression CV accuracy: 0.88 (+/- 0.06)
-SVC CV accuracy: 0.82 (+/- 0.07)
-MLPClassifier CV accuracy: 0.88 (+/- 0.06)
-DecisionTreeClassifier CV accuracy: 0.65 (+/- 0.06)
-GradientBoostingClassifier CV accuracy: 0.83 (+/- 0.05)
-RandomForestClassifier CV accuracy: 0.73 (+/- 0.06)
-
-SLICES VGG16 AVG POOL GRAY cv = 7
-Cross validation with k=7..
-LogisticRegression CV accuracy: 0.86 (+/- 0.07)
-SVC CV accuracy: 0.79 (+/- 0.18)
-MLPClassifier CV accuracy: 0.87 (+/- 0.07)
-DecisionTreeClassifier CV accuracy: 0.69 (+/- 0.07)
-GradientBoostingClassifier CV accuracy: 0.83 (+/- 0.06)
-RandomForestClassifier CV accuracy: 0.79 (+/- 0.08)
-
-SLICES EPOCH 100 COLOR
-create_model_sigmoid_two_layers CV accuracy: 0.76 (+/- 0.05)
-create_model_relu_two_layers CV accuracy: 0.81 (+/- 0.06)
-create_model_tanh_two_layers CV accuracy: 0.79 (+/- 0.06)
-create_model_relu_tanh_two_layers CV accuracy: 0.81 (+/- 0.03)
-create_model_sigmoid_one_layer CV accuracy: 0.78 (+/- 0.03)
-create_model_relu_one_layer CV accuracy: 0.80 (+/- 0.06)
-create_model_tanh_one_layer CV accuracy: 0.77 (+/- 0.05)
-
-SLICES EPOCH 100 GRAY
-create_model_sigmoid_two_layers CV accuracy: 0.76 (+/- 0.05)
-create_model_relu_two_layers CV accuracy: 0.83 (+/- 0.02)
-create_model_tanh_two_layers CV accuracy: 0.79 (+/- 0.05)
-create_model_relu_tanh_two_layers CV accuracy: 0.83 (+/- 0.01)
-create_model_sigmoid_one_layer CV accuracy: 0.80 (+/- 0.04)
-create_model_relu_one_layer CV accuracy: 0.83 (+/- 0.05)
-create_model_tanh_one_layer CV accuracy: 0.78 (+/- 0.03)
-
-
+OK
 
