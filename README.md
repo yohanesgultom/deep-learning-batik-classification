@@ -1,5 +1,7 @@
 # Deep learning batik classification
 
+> This repo contains programs that are used in experiment of paper: [Batik Classification using Deep Convolutional Network Transfer Learning](http://jiki.cs.ui.ac.id/index.php/jiki/article/view/507)
+
 Indonesian Batik classification using **VG16 convolutional neural network (CNN)** as feature extractor + softmax as classifier.
 
 Dataset consist of 5 batik classes where each images will **belong to exactly one class**:
@@ -120,4 +122,5 @@ For more options run each file with `-h` option. eg: `python surfbow.py -h`
   number={2},
   pages={59--66},
   year={2018}
-}```
+}
+```
