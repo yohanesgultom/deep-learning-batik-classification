@@ -108,3 +108,16 @@ python surfbow.py train_data_dir test_data_dir
 For more options run each file with `-h` option. eg: `python surfbow.py -h`
 
 > Process time is around 45 minutes with Intel Core i7 5500U 8 GB RAM
+
+## Citations
+
+```
+@article{gultom2018batik,
+  title={Batik Classification using Deep Convolutional Network Transfer Learning},
+  author={Gultom, Yohanes and Arymurthy, Aniati Murni and Masikome, Rian Josua},
+  journal={Jurnal Ilmu Komputer dan Informasi},
+  volume={11},
+  number={2},
+  pages={59--66},
+  year={2018}
+}```
