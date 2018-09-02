@@ -4,7 +4,7 @@
 
 Indonesian Batik classification using **VG16 convolutional neural network (CNN)** as feature extractor + softmax as classifier.
 
-Dataset consist of 5 batik classes where each images will **belong to exactly one class**:
+Our [dataset](https://drive.google.com/file/d/1uFnhO8WXdnyTBxGFy1qlqWU4iPmEF0kH/view) consists of 5 batik classes where each images will **belong to exactly one class**:
 
 1. Parang: parang (traditional blade) motifs
 1. Lereng: also blade-like pattern but less pointy than Parang
@@ -112,6 +112,8 @@ For more options run each file with `-h` option. eg: `python surfbow.py -h`
 > Process time is around 45 minutes with Intel Core i7 5500U 8 GB RAM
 
 ## Citations
+
+To cite our research or dataset, please use this citation:
 
 ```
 @article{gultom2018batik,
