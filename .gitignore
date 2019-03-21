@@ -5,6 +5,7 @@
 *.pkl
 *.pyc
 model*.json
+venv/
 bin/
 include/
 lib/
