@@ -15,6 +15,7 @@ output/
 full_test.local.sh
 dataset.index.json
 dataset_cleaned/
+dataset_cleaned_sliced/
 dataset/
 *bow/*.pkl
 *bow/*.xml
