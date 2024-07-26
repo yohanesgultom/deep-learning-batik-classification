@@ -1,10 +1,10 @@
 # Deep learning batik classification
 
-> This repo contains programs that are used in experiment of paper: [Batik Classification using Deep Convolutional Network Transfer Learning](http://jiki.cs.ui.ac.id/index.php/jiki/article/view/507)
+> This repo contains programs that are used in the experiment of paper: [Batik Classification using Deep Convolutional Network Transfer Learning](http://jiki.cs.ui.ac.id/index.php/jiki/article/view/507)
 
 Indonesian Batik classification using **VG16 convolutional neural network (CNN)** as feature extractor + softmax as classifier.
 
-Our [dataset](https://drive.google.com/file/d/1p1xbAobABEWI69a4slvbYEuQxFUwYhGd/view?usp=drive_link) consists of 5 batik classes where each images will **belong to exactly one class**:
+Our [dataset](https://drive.google.com/file/d/17Prl_TFgyOkkiFlek2r6MyknjAOPs3d7/view?usp=drive_link) consists of 5 batik classes where each images will **belong to exactly one class**:
 
 1. Parang: parang (traditional blade) motifs
 1. Lereng: also blade-like pattern but less pointy than Parang
@@ -48,7 +48,7 @@ Install dependencies: `pip install -r requirements.txt`
 
 ### VGG16 + Softmax NN
 
-Following commands are executing these steps:
+The following commands execute these steps:
 
 1. Convert images dataset to vector [h5 format](http://www.h5py.org/):  
 2. Extract features from dataset (still in h5 format)
@@ -79,7 +79,7 @@ python evaluate_sklearn.py train.features.h5 test.features.h5
 
 ### Classification using SIFT Bag of Words + SVM
 
-Following command is executing these steps:
+The following command executes these steps:
 
 1. Extract SIFT descriptors from images
 2. Cluster descriptors to build vocabulary using K-means
@@ -96,7 +96,7 @@ For more options run each file with `-h` option. eg: `python siftbow.py -h`
 
 ### Classification using SURF Bag of Words + SVM
 
-Following command is executing these steps:
+The following command executes these steps:
 
 1. Extract SURF descriptors from images
 2. Cluster descriptors to build vocabulary using K-means
